@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "description": "Zora Pond item tracker for Dungeons of Infinity",
   "main": "index.html",
-  "scripts": {},
+  "scripts": {
+    "start": "vite"
+  },
+  "devDependencies": {
+    "vite": "^5.4.11"
+  },
   "license": "MIT",
   "volta": {
     "node": "22.11.0"

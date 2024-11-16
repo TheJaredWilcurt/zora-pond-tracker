@@ -1,15 +1,34 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
     <title>Zora Pond Tracker</title>
+    <link rel="shortcut icon" href="king-zora.png">
     <style>
+      body {
+        background: #334;
+        color: #DDE;
+      }
       img {
+        display: block;
         /* IE */
         -ms-interpolation-mode: nearest-neighbor;
         /* Firefox */
         image-rendering: crisp-edges;
         /* Chromium */
         image-rendering: pixelated;
+        height: 48px;
+      }
+      input[type="number"] {
+        width: 50px;
+        -moz-appearance: textfield;
+        appearance: textfield;
+      }
+      .inventory-item {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
       }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
@@ -17,11 +36,50 @@
   <body>
     <h1>Zora Pond Item Tracker</h1>
     <h2>For Dungeons of Infinity</h2>
-    <div id="app"></div>
+    <div id="app">
+      Your Inventory:
+      <div
+        v-for="(gemAmount, gemColor) in inventory.gems"
+        class="inventory-item"
+        :key="gemColor"
+      >
+        <img
+          :src="'sprites/gem-' + gemColor + '.png'"
+          :alt="gemColor + ' colored gem'"
+        />
+        <span class="number-field">
+          <button @click="inventory.gems[gemColor]++">▲</button>
+          <input
+            v-model.number="inventory.gems[gemColor]"
+            min="0"
+            type="number"
+          />
+          <button @click="
+            inventory.gems[gemColor] > 0 ?
+            inventory.gems[gemColor]-- :
+            undefined
+          ">▼</button>
+        </span>
+      </div>
+    </div>
     <script>
       const app = Vue.createApp({
         data: function () {
-          return {};
+          return {
+            inventory: {
+              gems: {
+                pink: 0,
+                purple: 0,
+                yellow: 0,
+                cyan: 0,
+                green: 0,
+                white: 0,
+                red: 0,
+                blue: 0,
+                black: 0
+              }
+            }
+          };
         },
         methods: {}
       }).mount('#app');
