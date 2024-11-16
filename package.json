@@ -1,0 +1,11 @@
+{
+  "name": "zora-pond-tracker",
+  "version": "1.0.0",
+  "description": "Zora Pond item tracker for Dungeons of Infinity",
+  "main": "index.html",
+  "scripts": {},
+  "license": "MIT",
+  "volta": {
+    "node": "22.11.0"
+  }
+}
