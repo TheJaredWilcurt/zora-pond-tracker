@@ -4,10 +4,63 @@
     <meta charset="utf-8">
     <title>Zora Pond Tracker</title>
     <link rel="shortcut icon" href="king-zora.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
+      @font-face {
+        font-family: 'triforce';
+        src: url('fonts/triforce.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: 'ganon';
+        src: url('fonts/returnofganon.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+      }
+      html, body {
+        height: 100%;
+        border: 0px;
+        margin: 0px;
+        padding: 0px;
+      }
       body {
-        background: #334;
+        background-image: url('bg.jpg');
+        background-position: center center;
+        background-size: cover;
         color: #DDE;
+        font-family: 'ganon', sans-serif;
+        font-size: 150%;
+        isolation: isolate;
+      }
+      body:after {
+        content: '';
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        background: #334;
+        opacity: 0.85;
+        z-index: -1;
+      }
+      #app {
+        margin: 0px 100px;
+      }
+      @media (width < 900px) {
+        #app {
+          margin: 0px 5px;
+        }
+      }
+      h1 {
+        font-family: triforce, serif;
+        font-size: 80px;
+        text-align: center;
+      }
+      @media (width < 455px) {
+        h1 {
+          font-size: 50px;
+        }
       }
       img {
         display: block;
@@ -63,8 +116,6 @@
         border-radius: 0px 8px 8px 0px;
       }
 
-      .sub-items {
-      }
       .sub-item {
         display: inline-flex;
         flex-direction: column;
@@ -72,7 +123,7 @@
         justify-content: center;
         background: #445;
         border-radius: 8px;
-        margin: 10px;
+        margin: 4px 10px;
         padding: 10px;
         height: 29.5px;
       }
@@ -112,33 +163,37 @@
       .maze {
         height: 100px;
       }
+      footer {
+        height: 200px;
+      }
     </style>
     <script src="vue3.min.js"></script>
   </head>
   <body>
     <div id="app">
-      <h1>Zora Pond Item Tracker</h1>
-      <h2>
-        For Dungeons of Infinity
-        <select v-model="version">
-          <option version="1.1.6">1.1.6</option>
-          <option version="1.2.0">1.2.0</option>
-        </select>
-      </h2>
+      <header>
+        <h1>
+          Zora Pond<br>
+          Item Tracker
+        </h1>
+        <h2>
+          For Dungeons of Infinity
+          <select v-model="version">
+            <option version="1.1.6">1.1.6</option>
+            <option version="1.2.0">1.2.0</option>
+          </select>
+        </h2>
+      </header>
 
       <h3>Your Inventory:</h3>
       <section>
-        <div
+        <inv-item
           v-for="(gemAmount, gemColor) in inventory.gems"
-          class="inventory-item"
+          v-model="inventory.gems[gemColor]"
+          :alt="gemColor + ' colored gem'"
+          :src="'sprites/gem-' + gemColor + '.png'"
           :key="gemColor"
-        >
-          <img
-            :alt="gemColor + ' colored gem'"
-            :src="'sprites/gem-' + gemColor + '.png'"
-          />
-          <number-field v-model.number="inventory.gems[gemColor]"></number-field>
-        </div>
+        ></inv-item>
         <inv-item v-model="inventory.bag"    alt="Inventory" :min="1" :max="3"></inv-item>
         <inv-item v-model="inventory.tunic"  alt="Tunic"     :min="1" :max="4"></inv-item>
         <inv-item v-model="inventory.sword"  alt="Sword"              :max="6"></inv-item>
@@ -146,7 +201,7 @@
         <inv-item v-model="inventory.gloves" alt="Gloves"             :max="3"></inv-item>
         <inv-item v-model="inventory.bow"    alt="Bow"                :max="2"></inv-item>
 
-        <div class="sub-items">
+        <div>
           <img
             v-for="(bool, item) in inventory.booleans"
             :alt="titleCase(item)"
@@ -164,6 +219,13 @@
 
       <h3>Possible Rewards</h3>
       <section>
+        <div>
+          <select v-model="inventory.rupeeFilter">
+            <option value="show-all">Show All</option>
+            <option value="hide-rupees">Hide Rupees</option>
+            <option value="only-rupees">Only Rupees</option>
+          </select>
+        </div>
         <item-prize :v="inventory" a="red"    b="red"    i="heart"             ></item-prize>
         <item-prize :v="inventory" a="black"  b="black" :i="swordPrize"        ></item-prize>
         <item-prize :v="inventory" a="blue"   b="blue"  :i="inventoryPrize"    ></item-prize>
@@ -221,6 +283,7 @@
           <img src="dwarven-maze.jpg" class="maze" alt="Dwarven Maze Map">
         </a>
       </section>
+      <footer></footer>
     </div>
     <script>
       const titleCase = function (string) {
@@ -248,12 +311,7 @@
       const ItemPrize = {
         template: `
           <div v-if="valid" class="prize">
-            <span
-              v-if="(
-                i === 'rupee' ||
-                v.booleans[i]
-              )"
-            >
+            <span v-if="isRupee">
               <img
                 alt="Rupees"
                 src="sprites/rupee.gif"
@@ -295,20 +353,33 @@
           titleCase
         },
         computed: {
+          isRupee: function () {
+            const item = this.i;
+            const inventory = this.v;
+            return (
+              item === 'rupee' ||
+              inventory.booleans[item]
+            );
+          },
           valid: function () {
             let gem1 = this.a;
             let gem2 = this.b;
             let item = this.i;
             let inventory = this.v;
+            const rupeeFilter = inventory.rupeeFilter;
             const amount = this.n;
             const sameGem = gem1 === gem2;
             const gem1Amount = inventory.gems[gem1];
             const gem2Amount = inventory.gems[gem2];
 
-            if (
-              item === 'potion-pink' &&
-              inventory.booleans['pendant-of-cures']
-            ) {
+            const hideRupees = this.isRupee && rupeeFilter === 'hide-rupees';
+            const onlyRupees = !this.isRupee && rupeeFilter === 'only-rupees';
+            const skipAntidote = (
+              inventory.booleans['pendant-of-cures'] &&
+              item === 'potion-pink'
+            );
+
+            if (hideRupees || onlyRupees || skipAntidote) {
               return false;
             }
 
@@ -373,13 +444,18 @@
           <div class="inventory-item">
             <img
               :alt="alt"
-              :src="'sprites/' + alt.toLowerCase() + modelValue + '.png'"
+              role="button"
+              tabindex="0"
+              :src="src || 'sprites/' + alt.toLowerCase() + modelValue + '.png'"
+              @click="emit(modelValue + 1)"
+              @keydown.prevent.space="emit(modelValue + 1)"
+              @keyup.enter="emit(modelValue + 1)"
             >
             <number-field
               :modelValue="modelValue"
               :min="min"
               :max="max"
-              @update:modelValue="$emit('update:modelValue', parseInt($event))"
+              @update:modelValue="emit($event)"
             ></number-field>
           </div>
         `,
@@ -395,10 +471,22 @@
             type: String,
             required: true
           },
+          src: {
+            type: String,
+            default: undefined
+          },
           min,
           max
         },
-        emits: ['update:modelValue']
+        emits: ['update:modelValue'],
+        methods: {
+          emit: function (value) {
+            value = parseInt(value);
+            value = Math.min(this.max, value);
+            value = Math.max(this.min, value);
+            this.$emit('update:modelValue', value)
+          }
+        }
       };
 
       const app = Vue.createApp({
@@ -411,6 +499,7 @@
           return {
             version: '1.1.6',
             inventory: {
+              rupeeFilter: 'show-all',
               bag: 1,
               bow: 0,
               gloves: 0,
