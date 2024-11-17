@@ -17,19 +17,49 @@
         image-rendering: crisp-edges;
         /* Chromium */
         image-rendering: pixelated;
-        height: 48px;
+        height: 49px;
       }
-      input[type="number"] {
-        width: 50px;
-        -moz-appearance: textfield;
-        appearance: textfield;
-      }
+
       .inventory-item {
         display: inline-flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        background: #445;
+        border-radius: 8px;
+        margin: 10px;
+        padding: 10px;
       }
+      .inventory-item img {
+        margin-bottom: 8px;
+      }
+
+      .number-field {
+        display: flex;
+      }
+      .number-field input {
+        width: 24px;
+        border: 0px;
+        text-align: center;
+        -moz-appearance: textfield;
+        appearance: textfield;
+      }
+      .number-field input,
+      .number-field button {
+        background: #BBC;
+        color: #223;
+      }
+      .number-field button {
+        border: 0px;
+        font-size: 10px;
+      }
+      .number-field button:first-of-type {
+        border-radius: 8px 0px 0px 8px;
+      }
+      .number-field button:last-of-type {
+        border-radius: 0px 8px 8px 0px;
+      }
+
       .prize {
         display: inline-flex;
         flex-direction: column;
@@ -42,6 +72,19 @@
         display: flex;
         justify-content: center;
       }
+      .prize-image {
+        position: relative;
+      }
+      .prize-amount {
+        position: absolute;
+        bottom: 0px;
+        right: 12px;
+        transform: scaleX(150%);
+      }
+      .prize-amount img {
+        height: 17px;
+        filter: contrast(200%);
+      }
       .offerings img {
         height: 24px;
         margin: 7px 4px 1px 4px;
@@ -53,7 +96,7 @@
     <h1>Zora Pond Item Tracker</h1>
     <h2>For Dungeons of Infinity</h2>
     <div id="app">
-      Your Inventory:
+      <h3>Your Inventory:</h3>
       <div
         v-for="(gemAmount, gemColor) in inventory.gems"
         class="inventory-item"
@@ -66,18 +109,77 @@
         <number-field v-model.number="inventory.gems[gemColor]"></number-field>
       </div>
       <div class="inventory-item">
-        <img :src="'sprites/sword' + inventory.sword + '.png'" alt="sword">
-        <number-field v-model.number="inventory.sword" :min="1" :max="6"></number-field>
+        <img alt="Inventory bag" :src="'sprites/inventory' + inventory.bag + '.png'">
+        <number-field v-model.number="inventory.bag" :min="1" :max="3"></number-field>
       </div>
-      <item-prize :v="inventory" a="black" b="pink"   i="pendant-of-magic"></item-prize>
-      <item-prize :v="inventory" a="black" b="purple" i="pendant-of-direction"></item-prize>
-      <item-prize :v="inventory" a="black" b="yellow" i="pendant-of-cures"></item-prize>
-      <item-prize :v="inventory" a="black" b="cyan"   i="pendant-of-protection"></item-prize>
-      <item-prize :v="inventory" a="black" b="green"  i="pendant-of-wealth"></item-prize>
-      <item-prize :v="inventory" a="black" b="white"  i="pendant-of-revival"></item-prize>
-      <item-prize :v="inventory" a="black" b="red"    i="pendant-of-health"></item-prize>
-      <item-prize :v="inventory" a="black" b="blue"   i="pendant-of-secrets"></item-prize>
-      <item-prize :v="inventory" a="black" b="black" :i="swordPrize"></item-prize>
+      <div class="inventory-item">
+        <img alt="Tunic" :src="'sprites/tunic' + inventory.tunic + '.png'">
+        <number-field v-model.number="inventory.tunic" :min="1" :max="4"></number-field>
+      </div>
+      <div class="inventory-item">
+        <img alt="Sword" :src="'sprites/sword' + inventory.sword + '.png'">
+        <number-field v-model.number="inventory.sword" :max="6"></number-field>
+      </div>
+      <div class="inventory-item">
+        <img alt="Shield" :src="'sprites/shield' + inventory.shield + '.png'">
+        <number-field v-model.number="inventory.shield" :max="4"></number-field>
+      </div>
+      <div class="inventory-item">
+        <img alt="Gloves" :src="'sprites/gloves' + inventory.gloves + '.png'">
+        <number-field v-model.number="inventory.gloves" :max="3"></number-field>
+      </div>
+      <div class="inventory-item">
+        <img alt="Bow" :src="'sprites/bow' + inventory.bow + '.png'">
+        <number-field v-model.number="inventory.bow" :max="2"></number-field>
+      </div>
+
+      <h3>Possible Rewards</h3>
+
+      <item-prize :v="inventory" a="red"    b="red"    i="heart"             ></item-prize>
+      <item-prize :v="inventory" a="black"  b="black" :i="swordPrize"        ></item-prize>
+      <item-prize :v="inventory" a="blue"   b="blue"  :i="inventoryPrize"    ></item-prize>
+      <item-prize :v="inventory" a="black"  b="yellow" i="pendant-of-cures"  ></item-prize>
+      <item-prize :v="inventory" a="black"  b="white"  i="pendant-of-revival"></item-prize>
+      <item-prize :v="inventory" a="black"  b="purple" i="pendant-of-direction"></item-prize>
+      <item-prize :v="inventory" a="black"  b="cyan"   i="pendant-of-protection"></item-prize>
+      <item-prize :v="inventory" a="red"    b="blue"   i="cape"              ></item-prize>
+      <item-prize :v="inventory" a="black"  b="green"  i="pendant-of-wealth" ></item-prize>
+      <item-prize :v="inventory" a="white"  b="blue"  :i="shieldPrize"       ></item-prize>
+      <item-prize :v="inventory" a="white"  b="red"   :i="glovePrize"        ></item-prize>
+      <item-prize :v="inventory" a="green"  b="blue"  :i="tunicPrize"        ></item-prize>
+      <item-prize :v="inventory" a="purple" b="green"  i="potion-pink"       ></item-prize>
+      <item-prize :v="inventory" a="cyan"   b="blue"   i="bomb-bag"          ></item-prize>
+      <item-prize :v="inventory" a="green"  b="red"    i="gem-bag"           ></item-prize>
+      <item-prize :v="inventory" a="purple" b="red"    i="rod-of-hearts"     ></item-prize>
+      <item-prize :v="inventory" a="green"  b="green"  i="rod-of-rupees"     ></item-prize>
+      <item-prize :v="inventory" a="green"  b="white"  i="ring-of-rupees"    ></item-prize>
+      <item-prize :v="inventory" a="yellow" b="blue"   i="lamp"              ></item-prize>
+      <item-prize :v="inventory" a="pink"   b="blue"   i="potion-blue"       ></item-prize>
+      <item-prize :v="inventory" a="white"  b="white" :i="bowPrize"          ></item-prize>
+      <item-prize :v="inventory" a="cyan"   b="red"    i="quiver"            ></item-prize>
+      <item-prize :v="inventory" a="purple" b="white"  i="ring-of-hearts"    ></item-prize>
+      <item-prize :v="inventory" a="yellow" b="white"  i="ring-of-arrows"    ></item-prize>
+      <item-prize :v="inventory" a="cyan"   b="white"  i="ring-of-bombs"     ></item-prize>
+      <item-prize :v="inventory" a="cyan"   b="green"  i="rod-of-bombs"      ></item-prize>
+      <item-prize :v="inventory" a="pink"   b="red"    i="potion-red"        ></item-prize>
+      <item-prize :v="inventory" a="purple" b="purple" i="fairy-orb"         ></item-prize>
+      <item-prize :v="inventory" a="pink"   b="white"  i="potion-white"      ></item-prize>
+      <item-prize :v="inventory" a="cyan"   b="cyan"   i="ice-orb"     n="5" ></item-prize>
+      <item-prize :v="inventory" a="yellow" b="yellow" i="fire-orb"    n="4" ></item-prize>
+      <item-prize :v="inventory" a="black"  b="red"    i="pendant-of-health" ></item-prize>
+      <item-prize :v="inventory" a="black"  b="blue"   i="pendant-of-secrets"></item-prize>
+      <item-prize :v="inventory" a="black"  b="pink"   i="pendant-of-magic"  ></item-prize>
+      <item-prize :v="inventory" a="purple" b="blue"   i="rod-of-ice"        ></item-prize>
+      <item-prize :v="inventory" a="yellow" b="green"  i="rod-of-stone"      ></item-prize>
+      <item-prize :v="inventory" a="yellow" b="red"    i="rod-of-fire"       ></item-prize>
+      <item-prize :v="inventory" a="purple" b="cyan"   i="bomb"        n="10"></item-prize>
+      <item-prize :v="inventory" a="pink"   b="green"  i="potion-green"      ></item-prize>
+      <item-prize :v="inventory" a="yellow" b="cyan"   i="magic"       n="2" ></item-prize>
+      <item-prize :v="inventory" a="pink"   b="cyan"   i="food-burger" n="2" ></item-prize>
+      <item-prize :v="inventory" a="pink"   b="yellow" i="can"         n="3" ></item-prize>
+      <item-prize :v="inventory" a="pink"   b="purple" i="food-muffin" n="2" ></item-prize>
+      <item-prize :v="inventory" a="pink"   b="pink"   i="can"         n="2" ></item-prize>
+      <item-prize :v="inventory" a="purple" b="yellow" i="arrows"      n="60"></item-prize>
     </div>
     <script>
       const ItemPrize = {
@@ -89,11 +191,24 @@
                 src="sprites/rupee.gif"
               >
             </span>
-            <span v-else>
+            <span
+              v-else
+              class="prize-image"
+            >
               <img
                 :alt="titleCase(i)"
                 :src="'sprites/' + i + '.png'"
               >
+              <span
+                v-if="n"
+                class="prize-amount"
+              >
+                <img
+                  v-for="number in amount"
+                  :alt="number"
+                  :src="'sprites/' + number + '.png'"
+                >
+              </span>
             </span>
             <span class="offerings">
               <img
@@ -107,7 +222,7 @@
             </span>
           </div>
         `,
-        props: ['a', 'b', 'i', 'v'],
+        props: ['a', 'b', 'i', 'v', 'n'],
         methods: {
           titleCase: function (string) {
             return string
@@ -130,6 +245,7 @@
             let gem2 = this.b;
             let item = this.i;
             let inventory = this.v;
+            const amount = this.n;
             const sameGem = gem1 === gem2;
             const gem1Amount = inventory.gems[gem1];
             const gem2Amount = inventory.gems[gem2];
@@ -141,6 +257,9 @@
               return true
             }
             return false;
+          },
+          amount: function () {
+            return (this.n + '').split('');
           }
         }
       };
@@ -195,32 +314,69 @@
         data: function () {
           return {
             inventory: {
+              bag: 1,
+              bow: 0,
+              gloves: 0,
+              shield: 0,
               sword: 1,
+              tunic: 1,
               gems: {
-                pink: 2,
-                purple: 2,
-                yellow: 2,
-                cyan: 2,
-                green: 2,
-                white: 2,
-                red: 2,
-                blue: 2,
-                black: 2
+                pink: 0,
+                purple: 0,
+                yellow: 0,
+                cyan: 0,
+                green: 0,
+                white: 0,
+                red: 0,
+                blue: 0,
+                black: 0
               }
             }
           };
         },
         methods: {},
         computed: {
+          bowPrize: function () {
+            const bowLevel = this.inventory.bow;
+            if (bowLevel === 2) {
+              return 'rupee';
+            }
+            return 'bow' + (bowLevel + 1);
+          },
+          glovePrize: function () {
+            const glovesLevel = this.inventory.gloves;
+            if (glovesLevel === 3) {
+              return 'rupee'
+            }
+            return 'gloves' + (glovesLevel + 1);
+          },
+          inventoryPrize: function () {
+            const inventoryLevel = this.inventory.bag;
+            if (inventoryLevel === 3) {
+              return 'rupee';
+            }
+            return 'inventory' + (inventoryLevel + 1);
+          },
+          shieldPrize: function () {
+            const shieldLevel = this.inventory.shield;
+            if (shieldLevel === 4) {
+              return 'rupee';
+            }
+            return 'shield' + (shieldLevel + 1);
+          },
           swordPrize: function () {
             const swordLevel = this.inventory.sword;
-            if (swordLevel === 0) {
-              return 'net';
-            }
             if (swordLevel === 6) {
               return 'rupee';
             }
             return 'sword' + (swordLevel + 1)
+          },
+          tunicPrize: function () {
+            const tunicLevel = this.inventory.tunic;
+            if (tunicLevel === 4) {
+              return 'rupee';
+            }
+            return 'tunic' + (tunicLevel + 1);
           }
         }
       }).mount('#app');
