@@ -30,8 +30,24 @@
         align-items: center;
         justify-content: center;
       }
+      .prize {
+        display: inline-flex;
+        flex-direction: column;
+        background: #445;
+        border-radius: 8px;
+        margin: 10px;
+        padding: 10px;
+      }
+      .prize span {
+        display: flex;
+        justify-content: center;
+      }
+      .offerings img {
+        height: 24px;
+        margin: 7px 4px 1px 4px;
+      }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+    <script src="vue3.min.js"></script>
   </head>
   <body>
     <h1>Zora Pond Item Tracker</h1>
@@ -44,44 +60,169 @@
         :key="gemColor"
       >
         <img
-          :src="'sprites/gem-' + gemColor + '.png'"
           :alt="gemColor + ' colored gem'"
+          :src="'sprites/gem-' + gemColor + '.png'"
         />
-        <span class="number-field">
-          <button @click="inventory.gems[gemColor]++">▲</button>
-          <input
-            v-model.number="inventory.gems[gemColor]"
-            min="0"
-            type="number"
-          />
-          <button @click="
-            inventory.gems[gemColor] > 0 ?
-            inventory.gems[gemColor]-- :
-            undefined
-          ">▼</button>
-        </span>
+        <number-field v-model.number="inventory.gems[gemColor]"></number-field>
       </div>
+      <div class="inventory-item">
+        <img :src="'sprites/sword' + inventory.sword + '.png'" alt="sword">
+        <number-field v-model.number="inventory.sword" :min="1" :max="6"></number-field>
+      </div>
+      <item-prize :v="inventory" a="black" b="pink"   i="pendant-of-magic"></item-prize>
+      <item-prize :v="inventory" a="black" b="purple" i="pendant-of-direction"></item-prize>
+      <item-prize :v="inventory" a="black" b="yellow" i="pendant-of-cures"></item-prize>
+      <item-prize :v="inventory" a="black" b="cyan"   i="pendant-of-protection"></item-prize>
+      <item-prize :v="inventory" a="black" b="green"  i="pendant-of-wealth"></item-prize>
+      <item-prize :v="inventory" a="black" b="white"  i="pendant-of-revival"></item-prize>
+      <item-prize :v="inventory" a="black" b="red"    i="pendant-of-health"></item-prize>
+      <item-prize :v="inventory" a="black" b="blue"   i="pendant-of-secrets"></item-prize>
+      <item-prize :v="inventory" a="black" b="black" :i="swordPrize"></item-prize>
     </div>
     <script>
+      const ItemPrize = {
+        template: `
+          <div v-if="valid" class="prize">
+            <span v-if="i === 'rupee'">
+              <img
+                alt="Rupees"
+                src="sprites/rupee.gif"
+              >
+            </span>
+            <span v-else>
+              <img
+                :alt="titleCase(i)"
+                :src="'sprites/' + i + '.png'"
+              >
+            </span>
+            <span class="offerings">
+              <img
+                :alt="titleCase(a + '-gem')"
+                :src="'sprites/gem-' + a + '.png'"
+              />
+              <img
+                :alt="titleCase(b + '-gem')"
+                :src="'sprites/gem-' + b + '.png'"
+              />
+            </span>
+          </div>
+        `,
+        props: ['a', 'b', 'i', 'v'],
+        methods: {
+          titleCase: function (string) {
+            return string
+              .split('-')
+              .map((word) => {
+                if (word === 'of') {
+                  return word;
+                }
+                return (
+                  word[0].toUpperCase() +
+                  word.substring(1)
+                );
+              })
+              .join(' ');
+          }
+        },
+        computed: {
+          valid: function () {
+            let gem1 = this.a;
+            let gem2 = this.b;
+            let item = this.i;
+            let inventory = this.v;
+            const sameGem = gem1 === gem2;
+            const gem1Amount = inventory.gems[gem1];
+            const gem2Amount = inventory.gems[gem2];
+            if (sameGem) {
+              if (gem1Amount > 1) {
+                return true;
+              }
+            } else if (gem1Amount && gem2Amount) {
+              return true
+            }
+            return false;
+          }
+        }
+      };
+      const NumberField = {
+        template: `
+          <span class="number-field">
+            <button @click="
+              modelValue < max ?
+              emitAmount(modelValue + 1) :
+              undefined
+            ">▲</button>
+            <input
+              :value="modelValue"
+              :min="min"
+              :max="max"
+              type="number"
+              @input="emitAmount($event.target.value)"
+            />
+            <button @click="
+              modelValue > min ?
+              emitAmount(modelValue - 1) :
+              undefined
+            ">▼</button>
+          </span>
+        `,
+        props: {
+          min: {
+            type: Number,
+            default: 0
+          },
+          max: {
+            type: Number,
+            default: 999
+          },
+          modelValue: {
+            type: Number,
+            required: true
+          }
+        },
+        methods: {
+          emitAmount: function (amount) {
+            this.$emit('update:modelValue', amount);
+          }
+        }
+      };
+
       const app = Vue.createApp({
+        components: {
+          ItemPrize,
+          NumberField
+        },
         data: function () {
           return {
             inventory: {
+              sword: 1,
               gems: {
-                pink: 0,
-                purple: 0,
-                yellow: 0,
-                cyan: 0,
-                green: 0,
-                white: 0,
-                red: 0,
-                blue: 0,
-                black: 0
+                pink: 2,
+                purple: 2,
+                yellow: 2,
+                cyan: 2,
+                green: 2,
+                white: 2,
+                red: 2,
+                blue: 2,
+                black: 2
               }
             }
           };
         },
-        methods: {}
+        methods: {},
+        computed: {
+          swordPrize: function () {
+            const swordLevel = this.inventory.sword;
+            if (swordLevel === 0) {
+              return 'net';
+            }
+            if (swordLevel === 6) {
+              return 'rupee';
+            }
+            return 'sword' + (swordLevel + 1)
+          }
+        }
       }).mount('#app');
     </script>
   </body>
