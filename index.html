@@ -89,6 +89,9 @@
         height: 24px;
         margin: 7px 4px 1px 4px;
       }
+      .maze {
+        height: 100px;
+      }
     </style>
     <script src="vue3.min.js"></script>
   </head>
@@ -180,6 +183,11 @@
       <item-prize :v="inventory" a="pink"   b="purple" i="food-muffin" n="2" ></item-prize>
       <item-prize :v="inventory" a="pink"   b="pink"   i="can"         n="2" ></item-prize>
       <item-prize :v="inventory" a="purple" b="yellow" i="arrows"      n="60"></item-prize>
+
+      <h3>Dwarven Maze</h3>
+      <a href="dwarven-maze.jpg" target="_blank">
+        <img src="dwarven-maze.jpg" class="maze" alt="Dwarven Maze Map">
+      </a>
     </div>
     <script>
       const ItemPrize = {
