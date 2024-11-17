@@ -53,6 +53,9 @@
         border: 0px;
         font-size: 10px;
       }
+      .number-field button[disabled] {
+        color: #667;
+      }
       .number-field button:first-of-type {
         border-radius: 8px 0px 0px 8px;
       }
@@ -96,9 +99,16 @@
     <script src="vue3.min.js"></script>
   </head>
   <body>
-    <h1>Zora Pond Item Tracker</h1>
-    <h2>For Dungeons of Infinity</h2>
     <div id="app">
+      <h1>Zora Pond Item Tracker</h1>
+      <h2>
+        For Dungeons of Infinity
+        <select v-model="version">
+          <option version="1.1.6">1.1.6</option>
+          <option version="1.2.0">1.2.0</option>
+        </select>
+      </h2>
+
       <h3>Your Inventory:</h3>
       <div
         v-for="(gemAmount, gemColor) in inventory.gems"
@@ -111,30 +121,12 @@
         />
         <number-field v-model.number="inventory.gems[gemColor]"></number-field>
       </div>
-      <div class="inventory-item">
-        <img alt="Inventory bag" :src="'sprites/inventory' + inventory.bag + '.png'">
-        <number-field v-model.number="inventory.bag" :min="1" :max="3"></number-field>
-      </div>
-      <div class="inventory-item">
-        <img alt="Tunic" :src="'sprites/tunic' + inventory.tunic + '.png'">
-        <number-field v-model.number="inventory.tunic" :min="1" :max="4"></number-field>
-      </div>
-      <div class="inventory-item">
-        <img alt="Sword" :src="'sprites/sword' + inventory.sword + '.png'">
-        <number-field v-model.number="inventory.sword" :max="6"></number-field>
-      </div>
-      <div class="inventory-item">
-        <img alt="Shield" :src="'sprites/shield' + inventory.shield + '.png'">
-        <number-field v-model.number="inventory.shield" :max="4"></number-field>
-      </div>
-      <div class="inventory-item">
-        <img alt="Gloves" :src="'sprites/gloves' + inventory.gloves + '.png'">
-        <number-field v-model.number="inventory.gloves" :max="3"></number-field>
-      </div>
-      <div class="inventory-item">
-        <img alt="Bow" :src="'sprites/bow' + inventory.bow + '.png'">
-        <number-field v-model.number="inventory.bow" :max="2"></number-field>
-      </div>
+      <inv-item v-model="inventory.bag"    alt="Inventory" :min="1" :max="3"></inv-item>
+      <inv-item v-model="inventory.tunic"  alt="Tunic"     :min="1" :max="4"></inv-item>
+      <inv-item v-model="inventory.sword"  alt="Sword"              :max="6"></inv-item>
+      <inv-item v-model="inventory.shield" alt="Shield"             :max="4"></inv-item>
+      <inv-item v-model="inventory.gloves" alt="Gloves"             :max="3"></inv-item>
+      <inv-item v-model="inventory.bow"    alt="Bow"                :max="2"></inv-item>
 
       <h3>Possible Rewards</h3>
 
@@ -185,11 +177,23 @@
       <item-prize :v="inventory" a="purple" b="yellow" i="arrows"      n="60"></item-prize>
 
       <h3>Dwarven Maze</h3>
-      <a href="dwarven-maze.jpg" target="_blank">
+      <a
+        href="dwarven-maze.jpg"
+        target="_blank"
+        style="display: inline-block;"
+      >
         <img src="dwarven-maze.jpg" class="maze" alt="Dwarven Maze Map">
       </a>
     </div>
     <script>
+      const min = {
+        type: Number,
+        default: 0
+      };
+      const max = {
+        type: Number,
+        default: 999
+      };
       const ItemPrize = {
         template: `
           <div v-if="valid" class="prize">
@@ -274,11 +278,14 @@
       const NumberField = {
         template: `
           <span class="number-field">
-            <button @click="
-              modelValue < max ?
-              emitAmount(modelValue + 1) :
-              undefined
-            ">▲</button>
+            <button
+              :disabled="!(modelValue < max)"
+              @click="
+                modelValue < max ?
+                emitAmount(modelValue + 1) :
+                undefined
+              "
+            >▲</button>
             <input
               :value="modelValue"
               :min="min"
@@ -286,22 +293,19 @@
               type="number"
               @input="emitAmount($event.target.value)"
             />
-            <button @click="
-              modelValue > min ?
-              emitAmount(modelValue - 1) :
-              undefined
-            ">▼</button>
+            <button
+              :disabled="!(modelValue > min)"
+              @click="
+                modelValue > min ?
+                emitAmount(modelValue - 1) :
+                undefined
+              "
+            >▼</button>
           </span>
         `,
         props: {
-          min: {
-            type: Number,
-            default: 0
-          },
-          max: {
-            type: Number,
-            default: 999
-          },
+          min,
+          max,
           modelValue: {
             type: Number,
             required: true
@@ -313,14 +317,48 @@
           }
         }
       };
+      const InvItem = {
+        template: `
+          <div class="inventory-item">
+            <img
+              :alt="alt"
+              :src="'sprites/' + alt.toLowerCase() + modelValue + '.png'"
+            >
+            <number-field
+              :modelValue="modelValue"
+              :min="min"
+              :max="max"
+              @update:modelValue="$emit('update:modelValue', parseInt($event))"
+            ></number-field>
+          </div>
+        `,
+        components: {
+          NumberField
+        },
+        props: {
+          modelValue: {
+            type: Number,
+            required: true
+          },
+          alt: {
+            type: String,
+            required: true
+          },
+          min,
+          max
+        },
+        emits: ['update:modelValue']
+      };
 
       const app = Vue.createApp({
         components: {
           ItemPrize,
+          InvItem,
           NumberField
         },
         data: function () {
           return {
+            version: '1.1.6',
             inventory: {
               bag: 1,
               bow: 0,
@@ -346,6 +384,13 @@
         computed: {
           bowPrize: function () {
             const bowLevel = this.inventory.bow;
+            if (this.version === '1.1.6') {
+              if (bowLevel === 0) {
+                return 'bow1';
+              } else {
+                return 'rupee';
+              }
+            }
             if (bowLevel === 2) {
               return 'rupee';
             }
