@@ -31,6 +31,8 @@
         color: #DDE;
         font-family: 'ganon', sans-serif;
         font-size: 150%;
+        text-rendering: optimizeSpeed;
+        text-shadow: 2px 2px 6px #000;
         isolation: isolate;
       }
       body:after {
@@ -55,7 +57,9 @@
       h1 {
         font-family: triforce, serif;
         font-size: 80px;
+        font-weight: normal;
         text-align: center;
+        text-shadow: 4px 4px 4px #0006;
       }
       @media (width < 455px) {
         h1 {
@@ -72,13 +76,18 @@
         image-rendering: pixelated;
         height: 49px;
       }
+      .inventory-item,
+      .sub-item,
+      select {
+        box-shadow: 2px 2px 6px #000A;
+      }
 
       .inventory-item {
         display: inline-flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background: #445;
+        background: #445C;
         border-radius: 8px;
         margin: 10px;
         padding: 10px;
@@ -89,6 +98,12 @@
 
       .number-field {
         display: flex;
+      }
+
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0px;
       }
       .number-field input {
         width: 24px;
@@ -121,7 +136,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background: #445;
+        background: #445C;
         border-radius: 8px;
         margin: 4px 10px;
         padding: 10px;
@@ -163,6 +178,10 @@
       .maze {
         height: 100px;
       }
+
+      .pointer {
+        cursor: pointer;
+      }
       footer {
         height: 200px;
       }
@@ -194,18 +213,18 @@
           :src="'sprites/gem-' + gemColor + '.png'"
           :key="gemColor"
         ></inv-item>
-        <inv-item v-model="inventory.bag"    alt="Inventory" :min="1" :max="3"></inv-item>
-        <inv-item v-model="inventory.tunic"  alt="Tunic"     :min="1" :max="4"></inv-item>
-        <inv-item v-model="inventory.sword"  alt="Sword"              :max="6"></inv-item>
-        <inv-item v-model="inventory.shield" alt="Shield"             :max="4"></inv-item>
-        <inv-item v-model="inventory.gloves" alt="Gloves"             :max="3"></inv-item>
-        <inv-item v-model="inventory.bow"    alt="Bow"                :max="2"></inv-item>
+        <inv-item v-model="inventory.bag"    alt="Bag"    :min="1" :max="3"></inv-item>
+        <inv-item v-model="inventory.tunic"  alt="Tunic"  :min="1" :max="4"></inv-item>
+        <inv-item v-model="inventory.sword"  alt="Sword"           :max="6"></inv-item>
+        <inv-item v-model="inventory.shield" alt="Shield"          :max="4"></inv-item>
+        <inv-item v-model="inventory.gloves" alt="Gloves"          :max="3"></inv-item>
+        <inv-item v-model="inventory.bow"    alt="Bow"             :max="2"></inv-item>
 
         <div>
           <img
             v-for="(bool, item) in inventory.booleans"
             :alt="titleCase(item)"
-            class="sub-item"
+            class="sub-item pointer"
             :data-selected="bool"
             role="button"
             tabindex="0"
@@ -314,7 +333,13 @@
             <span v-if="isRupee">
               <img
                 alt="Rupees"
+                class="pointer"
+                role="button"
                 src="sprites/rupee.gif"
+                tabindex="0"
+                @click="acquire"
+                @keydown.prevent.space="acquire"
+                @keyup.enter="acquire"
               >
             </span>
             <span
@@ -323,7 +348,13 @@
             >
               <img
                 :alt="titleCase(i)"
+                class="pointer"
+                role="button"
                 :src="'sprites/' + i + '.png'"
+                tabindex="0"
+                @click="acquire"
+                @keydown.prevent.space="acquire"
+                @keyup.enter="acquire"
               >
               <span
                 v-if="n"
@@ -350,6 +381,26 @@
         `,
         props: ['a', 'b', 'i', 'v', 'n'],
         methods: {
+          acquire: function () {
+            let gem1 = this.a;
+            let gem2 = this.b;
+            let item = this.i;
+            let inventory = this.v;
+            inventory.gems[gem1]--;
+            inventory.gems[gem2]--;
+            let itemEndsInNumber = '0123456789'.split('').includes(item[item.length - 1]);
+            let itemWithoutNumber = item;
+            if (itemEndsInNumber) {
+              itemWithoutNumber = item.substring(0, item.length - 1);
+            }
+            if (this.isRupee) {
+              return;
+            } else if (inventory.booleans.hasOwnProperty(itemWithoutNumber)) {
+              inventory.booleans[itemWithoutNumber] = true;
+            } else if (inventory.hasOwnProperty(itemWithoutNumber)) {
+              inventory[itemWithoutNumber]++;
+            }
+          },
           titleCase
         },
         computed: {
@@ -444,6 +495,7 @@
           <div class="inventory-item">
             <img
               :alt="alt"
+              class="pointer"
               role="button"
               tabindex="0"
               :src="src || 'sprites/' + alt.toLowerCase() + modelValue + '.png'"
@@ -575,7 +627,7 @@
             if (inventoryLevel === 3) {
               return 'rupee';
             }
-            return 'inventory' + (inventoryLevel + 1);
+            return 'bag' + (inventoryLevel + 1);
           },
           shieldPrize: function () {
             const shieldLevel = this.inventory.shield;
