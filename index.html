@@ -130,6 +130,10 @@
       .number-field button:last-of-type {
         border-radius: 0px 8px 8px 0px;
       }
+      .check-box {
+        margin: 8px 8px 8px 16px;
+        vertical-align: 4px;
+      }
 
       .sub-item {
         display: inline-flex;
@@ -171,6 +175,9 @@
         height: 17px;
         filter: contrast(200%);
       }
+      .prize-dim {
+        background: #4458;
+      }
       .offerings img {
         height: 24px;
         margin: 7px 4px 1px 4px;
@@ -179,6 +186,9 @@
         height: 100px;
       }
 
+      .dim {
+        opacity: 0.5;
+      }
       .pointer {
         cursor: pointer;
       }
@@ -239,11 +249,9 @@
       <h3>Possible Rewards</h3>
       <section>
         <div>
-          <select v-model="inventory.rupeeFilter">
-            <option value="show-all">Show All</option>
-            <option value="hide-rupees">Hide Rupees</option>
-            <option value="only-rupees">Only Rupees</option>
-          </select>
+          <check-box v-model="inventory.filters.showAvailable">Show Available</check-box>
+          <check-box v-model="inventory.filters.showUnavailable">Show Unavailable</check-box>
+          <check-box v-model="inventory.filters.showRupees">Show Rupees</check-box>
         </div>
         <item-prize :v="inventory" a="red"    b="red"    i="heart"             ></item-prize>
         <item-prize :v="inventory" a="black"  b="black" :i="swordPrize"        ></item-prize>
@@ -329,11 +337,18 @@
       };
       const ItemPrize = {
         template: `
-          <div v-if="valid" class="prize">
+          <div
+            v-if="showPrize"
+            class="prize"
+            :class="{ 'prize-dim': !valid }"
+          >
             <span v-if="isRupee">
               <img
                 alt="Rupees"
-                class="pointer"
+                :class="{
+                  dim: !valid,
+                  pointer: valid
+                }"
                 role="button"
                 src="sprites/rupee.gif"
                 tabindex="0"
@@ -348,7 +363,10 @@
             >
               <img
                 :alt="titleCase(i)"
-                class="pointer"
+                :class="{
+                  dim: !valid,
+                  pointer: valid
+                }"
                 role="button"
                 :src="'sprites/' + i + '.png'"
                 tabindex="0"
@@ -363,6 +381,7 @@
                 <img
                   v-for="number in amount"
                   :alt="number"
+                  :class="{ dim: !valid }"
                   :src="'sprites/' + number + '.png'"
                 >
               </span>
@@ -370,10 +389,12 @@
             <span class="offerings">
               <img
                 :alt="titleCase(a + '-gem')"
+                :class="{ dim: v.gems[a] < 1 }"
                 :src="'sprites/gem-' + a + '.png'"
               />
               <img
                 :alt="titleCase(b + '-gem')"
+                :class="secondGemStyles"
                 :src="'sprites/gem-' + b + '.png'"
               />
             </span>
@@ -382,6 +403,9 @@
         props: ['a', 'b', 'i', 'v', 'n'],
         methods: {
           acquire: function () {
+            if (!this.valid) {
+              return;
+            }
             let gem1 = this.a;
             let gem2 = this.b;
             let item = this.i;
@@ -412,25 +436,59 @@
               inventory.booleans[item]
             );
           },
+          showPrize: function () {
+            let gem1 = this.a;
+            let gem2 = this.b;
+            let item = this.i;
+            let inventory = this.v;
+            const amount = this.n;
+            const sameGem = gem1 === gem2;
+            const gem1Amount = inventory.gems[gem1];
+            const gem2Amount = inventory.gems[gem2];
+            const gem1Unobtainable = !sameGem && gem1Amount < 1;
+            const gem2Unobtainable = !sameGem && gem2Amount < 1;
+            const sameGemUnobtainable = sameGem && gem1Amount < 2;
+            const unobtainable = gem1Unobtainable || gem2Unobtainable || sameGemUnobtainable;
+            const obtainable = (
+              (sameGem && gem1Amount > 1) ||
+              (!sameGem && gem1Amount > 0 && gem2Amount > 0)
+            );
+
+            const hideRupees = this.isRupee && !inventory.filters.showRupees;
+            const skipAntidote = (
+              inventory.booleans['pendant-of-cures'] &&
+              item === 'potion-pink'
+            );
+            const skipUnobtainable = unobtainable && !inventory.filters.showUnavailable;
+            const skipObtainable = obtainable && !inventory.filters.showAvailable;
+
+            if (
+              hideRupees ||
+              skipAntidote ||
+              skipUnobtainable ||
+              skipObtainable
+            ) {
+              return false;
+            }
+
+            return true;
+          },
           valid: function () {
             let gem1 = this.a;
             let gem2 = this.b;
             let item = this.i;
             let inventory = this.v;
-            const rupeeFilter = inventory.rupeeFilter;
             const amount = this.n;
             const sameGem = gem1 === gem2;
             const gem1Amount = inventory.gems[gem1];
             const gem2Amount = inventory.gems[gem2];
 
-            const hideRupees = this.isRupee && rupeeFilter === 'hide-rupees';
-            const onlyRupees = !this.isRupee && rupeeFilter === 'only-rupees';
             const skipAntidote = (
               inventory.booleans['pendant-of-cures'] &&
               item === 'potion-pink'
             );
 
-            if (hideRupees || onlyRupees || skipAntidote) {
+            if (skipAntidote) {
               return false;
             }
 
@@ -445,6 +503,19 @@
           },
           amount: function () {
             return (this.n + '').split('');
+          },
+          secondGemStyles: function () {
+            let gem1 = this.a;
+            let gem2 = this.b;
+            let inventory = this.v;
+            const sameGem = gem1 === gem2;
+            const gem2Amount = inventory.gems[gem2];
+            if (sameGem && gem2Amount < 2) {
+              return 'dim';
+            } else if (gem2Amount < 1) {
+              return 'dim';
+            }
+            return undefined;
           }
         }
       };
@@ -540,9 +611,25 @@
           }
         }
       };
+      const CheckBox = {
+        template: `
+          <label>
+            <input
+              :checked="modelValue"
+              class="check-box"
+              type="checkbox"
+              @input="$emit('update:modelValue', $event.target.checked)"
+            >
+            <slot></slot>
+          </label>
+        `,
+        props: ['modelValue'],
+        emits: ['update:modelValue']
+      };
 
       const app = Vue.createApp({
         components: {
+          CheckBox,
           ItemPrize,
           InvItem,
           NumberField
@@ -551,7 +638,11 @@
           return {
             version: '1.1.6',
             inventory: {
-              rupeeFilter: 'show-all',
+              filters: {
+                showUnavailable: true,
+                showAvailable: true,
+                showRupees: true
+              },
               bag: 1,
               bow: 0,
               gloves: 0,
