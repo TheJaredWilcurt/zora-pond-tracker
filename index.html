@@ -146,8 +146,17 @@
         padding: 10px;
         height: 29.5px;
       }
+      .sub-item.small {
+        height: 16px;
+        padding: 8px 10px;
+      }
       .sub-item[data-selected="false"] {
         opacity: 0.5;
+      }
+
+      .filters {
+        display: flex;
+        align-items: center;
       }
 
       .prize {
@@ -248,10 +257,22 @@
 
       <h3>Possible Rewards</h3>
       <section>
-        <div>
+        <div class="filters">
           <check-box v-model="inventory.filters.showAvailable">Show Available</check-box>
           <check-box v-model="inventory.filters.showUnavailable">Show Unavailable</check-box>
           <check-box v-model="inventory.filters.showRupees">Show Rupees</check-box>
+          <img
+            v-for="(bool, item) in inventory.filters.gems"
+            :alt="titleCase(item + '-gem')"
+            class="sub-item small pointer"
+            :data-selected="bool"
+            role="button"
+            tabindex="0"
+            :src="'sprites/gem-' + item + '.png'"
+            @click="inventory.filters.gems[item] = !inventory.filters.gems[item]"
+            @keydown.prevent.space="inventory.filters.gems[item] = !inventory.filters.gems[item]"
+            @keyup.prevent.enter="inventory.filters.gems[item] = !inventory.filters.gems[item]"
+          >
         </div>
         <item-prize :v="inventory" a="red"    b="red"    i="heart"             ></item-prize>
         <item-prize :v="inventory" a="black"  b="black" :i="swordPrize"        ></item-prize>
@@ -453,6 +474,8 @@
               (sameGem && gem1Amount > 1) ||
               (!sameGem && gem1Amount > 0 && gem2Amount > 0)
             );
+            const gem1FilteredOut = !inventory.filters.gems[gem1];
+            const gem2FilteredOut = !inventory.filters.gems[gem2];
 
             const hideRupees = this.isRupee && !inventory.filters.showRupees;
             const skipAntidote = (
@@ -461,12 +484,14 @@
             );
             const skipUnobtainable = unobtainable && !inventory.filters.showUnavailable;
             const skipObtainable = obtainable && !inventory.filters.showAvailable;
+            const gemsFilteredOut = gem1FilteredOut || gem2FilteredOut;
 
             if (
               hideRupees ||
               skipAntidote ||
               skipUnobtainable ||
-              skipObtainable
+              skipObtainable ||
+              gemsFilteredOut
             ) {
               return false;
             }
@@ -639,9 +664,20 @@
             version: '1.1.6',
             inventory: {
               filters: {
-                showUnavailable: true,
                 showAvailable: true,
-                showRupees: true
+                showUnavailable: false,
+                showRupees: true,
+                gems: {
+                  pink: true,
+                  purple: true,
+                  yellow: true,
+                  cyan: true,
+                  green: true,
+                  white: true,
+                  red: true,
+                  blue: true,
+                  black: true
+                }
               },
               bag: 1,
               bow: 0,
