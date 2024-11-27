@@ -97,7 +97,7 @@
         <img
           alt="Dwarven Maze Map"
           class="maze pixel-corners"
-          src="/zora-pond-tracker/dwarven-maze.jpg"
+          :src="'/zora-pond-tracker/dwarven-maze.jpg'"
         />
       </a>
     </section>

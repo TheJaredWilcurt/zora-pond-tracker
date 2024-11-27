@@ -13,7 +13,7 @@
             pointer: valid
           }"
           role="button"
-          src="/zora-pond-tracker/sprites/1.1.6/rupee.gif"
+          :src="'/zora-pond-tracker/sprites/1.1.6/rupee.gif'"
           tabindex="0"
           @click="acquire"
           @keydown.prevent.space="acquire"

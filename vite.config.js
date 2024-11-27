@@ -7,6 +7,11 @@ export default defineConfig({
   base: '/zora-pond-tracker',
   build: {
     rollupOptions: {
+      external: [
+        '/zora-pond-tracker/bg.jpg',
+        '/zora-pond-tracker/fonts/returnofganon.woff2',
+        '/zora-pond-tracker/fonts/triforce.woff2'
+      ],
       output: {
         manualChunks: {
           vue: ['vue']
