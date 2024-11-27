@@ -1,0 +1,229 @@
+html,
+body {
+  height: 100%;
+  border: 0px;
+  margin: 0px;
+  padding: 0px;
+}
+body {
+  background-image: url('/zora-pond-tracker/bg.jpg');
+  background-position: center center;
+  background-size: cover;
+  color: #DDE;
+  font-family: 'ganon', sans-serif;
+  font-size: 150%;
+  text-rendering: optimizeSpeed;
+  text-shadow: 2px 2px 6px #000;
+  isolation: isolate;
+}
+body:after {
+  content: '';
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background: #334;
+  opacity: 0.85;
+  z-index: -1;
+}
+#app {
+  margin: 0px 100px;
+}
+@media (width < 900px) {
+  #app {
+    margin: 0px 5px;
+  }
+}
+h1 {
+  font-family: triforce, serif;
+  font-size: 80px;
+  font-weight: normal;
+  line-height: 0.95;
+  text-align: center;
+  text-shadow: 4px 4px 4px #0006;
+}
+@media (width < 455px) {
+  h1 {
+    font-size: 50px;
+  }
+}
+img {
+  display: block;
+  /* IE */
+  -ms-interpolation-mode: nearest-neighbor;
+  /* Firefox */
+  image-rendering: crisp-edges;
+  /* Chromium */
+  image-rendering: pixelated;
+  height: 49px;
+}
+.inventory-item-wrapper,
+.prize-wrapper,
+.sub-item-wrapper,
+.select-wrapper {
+  filter: drop-shadow(2px 2px 6px #000A);
+}
+
+select {
+  background: #BBCE;
+  border: 0px;
+  padding: 5px 16px;
+  font-size: 22px;
+  vertical-align: 4px;
+}
+
+.inventory-item-wrapper {
+  display: inline-block;
+  margin: 10px;
+}
+
+.inventory-item {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #445C;
+  padding: 10px;
+}
+.inventory-item img {
+  margin-bottom: 8px;
+}
+
+.number-field {
+  display: flex;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0px;
+}
+.number-field input {
+  width: 24px;
+  border: 0px;
+  font-size: 22px;
+  text-align: center;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+.number-field input,
+.number-field button {
+  background: #BBC;
+  color: #223;
+}
+.number-field button {
+  border: 0px;
+  font-size: 10px;
+}
+.number-field button[disabled] {
+  color: #667;
+}
+.number-field button:first-of-type {
+  border-radius: 8px 0px 0px 8px;
+}
+.number-field button:last-of-type {
+  border-radius: 0px 8px 8px 0px;
+}
+.check-box {
+  margin: 8px 8px 12px 16px;
+  vertical-align: 4px;
+}
+
+.sub-item {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #445C;
+  margin: 4px 10px;
+  padding: 10px;
+  height: 29.5px;
+}
+.sub-item.small {
+  height: 16px;
+  padding: 8px 10px;
+}
+.sub-item[data-selected="false"] {
+  opacity: 0.5;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+}
+
+.prize-wrapper {
+  display: inline-flex;
+}
+.prize {
+  display: inline-flex;
+  flex-direction: column;
+  background: #445;
+  margin: 10px;
+  padding: 10px;
+}
+.prize span {
+  display: flex;
+  justify-content: center;
+}
+.prize-image {
+  position: relative;
+}
+.prize-amount {
+  position: absolute;
+  bottom: 0px;
+  right: 12px;
+  transform: scaleX(150%);
+}
+.prize-amount img {
+  height: 17px;
+  filter: contrast(200%);
+}
+.prize-dim {
+  background: #4458;
+}
+.offerings img {
+  height: 24px;
+  margin: 7px 4px 1px 4px;
+}
+.maze {
+  height: 100px;
+  border: 7px solid #00000094;
+  image-rendering: optimizequality;
+}
+
+.dim {
+  opacity: 0.5;
+}
+.pointer {
+  cursor: pointer;
+}
+footer {
+  height: 200px;
+}
+
+.pixel-corners {
+  clip-path: polygon(
+    0px calc(100% - 6px),
+    3px calc(100% - 6px),
+    3px calc(100% - 3px),
+    6px calc(100% - 3px),
+    6px 100%,
+    calc(100% - 6px) 100%,
+    calc(100% - 6px) calc(100% - 3px),
+    calc(100% - 3px) calc(100% - 3px),
+    calc(100% - 3px) calc(100% - 6px),
+    100% calc(100% - 6px),
+    100% 6px,
+    calc(100% - 3px) 6px,
+    calc(100% - 3px) 3px,
+    calc(100% - 6px) 3px,
+    calc(100% - 6px) 0px,
+    6px 0px,
+    6px 3px,
+    3px 3px,
+    3px 6px,
+    0px 6px
+  );
+}
