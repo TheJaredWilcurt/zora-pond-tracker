@@ -82,8 +82,8 @@
         :inventory="inventory"
         :a="gemCombo.itemA"
         :b="gemCombo.itemB"
-        :i="gemCombo.prize"
-        :n="gemCombo.amount"
+        :prize="gemCombo.prize"
+        :amount="gemCombo.amount"
       />
     </section>
 

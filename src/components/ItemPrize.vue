@@ -25,24 +25,24 @@
         class="prize-image"
       >
         <img
-          :alt="titleCase(i)"
+          :alt="titleCase(prize)"
           :class="{
             dim: !valid,
             pointer: valid
           }"
           role="button"
-          :src="'/zora-pond-tracker/sprites/1.1.6/' + i + '.png'"
+          :src="'/zora-pond-tracker/sprites/1.1.6/' + prize + '.png'"
           tabindex="0"
           @click="acquire"
           @keydown.prevent.space="acquire"
           @keyup.enter="acquire"
         >
         <span
-          v-if="n"
+          v-if="amount"
           class="prize-amount"
         >
           <img
-            v-for="number in amount"
+            v-for="number in amountCharacters"
             :alt="number"
             :class="{ dim: !valid }"
             :src="'/zora-pond-tracker/sprites/1.1.6/' + number + '.png'"
@@ -70,7 +70,13 @@ import { titleCase } from '@/helpers/index.js';
 
 export default {
   name: 'ItemPrize',
-  props: ['a', 'b', 'i', 'inventory', 'n'],
+  props: [
+    'a',
+    'b',
+    'prize',
+    'inventory',
+    'amount'
+  ],
   methods: {
     acquire: function () {
       if (!this.valid) {
@@ -78,7 +84,7 @@ export default {
       }
       let gem1 = this.a;
       let gem2 = this.b;
-      let item = this.i;
+      let item = this.prize;
       let inventory = this.inventory;
       inventory.gems[gem1]--;
       inventory.gems[gem2]--;
@@ -99,7 +105,7 @@ export default {
   },
   computed: {
     isRupee: function () {
-      const item = this.i;
+      const item = this.prize;
       const inventory = this.inventory;
       return (
         item === 'rupee' ||
@@ -109,9 +115,9 @@ export default {
     showPrize: function () {
       let gem1 = this.a;
       let gem2 = this.b;
-      let item = this.i;
+      let item = this.prize;
       let inventory = this.inventory;
-      const amount = this.n;
+      const amount = this.amount;
       const sameGem = gem1 === gem2;
       const gem1Amount = inventory.gems[gem1];
       const gem2Amount = inventory.gems[gem2];
@@ -150,9 +156,9 @@ export default {
     valid: function () {
       let gem1 = this.a;
       let gem2 = this.b;
-      let item = this.i;
+      let item = this.prize;
       let inventory = this.inventory;
-      const amount = this.n;
+      const amount = this.amount;
       const sameGem = gem1 === gem2;
       const gem1Amount = inventory.gems[gem1];
       const gem2Amount = inventory.gems[gem2];
@@ -175,8 +181,8 @@ export default {
       }
       return false;
     },
-    amount: function () {
-      return (this.n + '').split('');
+    amountCharacters: function () {
+      return (this.amount + '').split('');
     },
     secondGemStyles: function () {
       let gem1 = this.a;
