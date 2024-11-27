@@ -1,5 +1,5 @@
 <template>
-  <span class="number-field">
+  <span class="number-field pixel-corners">
     <button
       :disabled="!(modelValue < max)"
       @click="incrementAmount"

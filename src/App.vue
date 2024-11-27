@@ -7,10 +7,12 @@
       </h1>
       <h2>
         For Dungeons of Infinity
-        <select v-model="version">
-          <option version="1.1.6">1.1.6</option>
-          <option version="1.2.0">1.2.0</option>
-        </select>
+        <span class="select-wrapper">
+          <select v-model="version" class="pixel-corners">
+            <option version="1.2.0">1.2.0</option>
+            <option version="1.1.6">1.1.6</option>
+          </select>
+        </span>
       </h2>
     </header>
 
@@ -31,85 +33,95 @@
       <InventoryItem v-model="inventory.bow"    alt="Bow"             :max="2"></InventoryItem>
 
       <div>
-        <img
+        <span
           v-for="(bool, item) in inventory.booleans"
-          :alt="titleCase(item)"
-          class="sub-item pointer"
-          :data-selected="bool"
-          role="button"
-          tabindex="0"
-          :src="'/zora-pond-tracker/sprites/1.1.6/' + item + '.png'"
-          @click="inventory.booleans[item] = !inventory.booleans[item]"
-          @keydown.prevent.space="inventory.booleans[item] = !inventory.booleans[item]"
-          @keyup.prevent.enter="inventory.booleans[item] = !inventory.booleans[item]"
+          class="sub-item-wrapper"
+          :key="'booleans-' + item"
         >
+          <img
+            :alt="titleCase(item)"
+            class="sub-item pixel-corners pointer"
+            :data-selected="bool"
+            role="button"
+            tabindex="0"
+            :src="'/zora-pond-tracker/sprites/1.1.6/' + item + '.png'"
+            @click="inventory.booleans[item] = !inventory.booleans[item]"
+            @keydown.prevent.space="inventory.booleans[item] = !inventory.booleans[item]"
+            @keyup.prevent.enter="inventory.booleans[item] = !inventory.booleans[item]"
+          />
+        </span>
       </div>
     </section>
 
     <h3>Possible Rewards</h3>
     <section>
       <div class="filters">
-        <check-box v-model="inventory.filters.showAvailable">Show Available</check-box>
-        <check-box v-model="inventory.filters.showUnavailable">Show Unavailable</check-box>
-        <check-box v-model="inventory.filters.showRupees">Show Rupees</check-box>
-        <img
+        <CheckBox v-model="inventory.filters.showAvailable">Show Available</CheckBox>
+        <CheckBox v-model="inventory.filters.showUnavailable">Show Unavailable</CheckBox>
+        <CheckBox v-model="inventory.filters.showRupees">Show Rupees</CheckBox>
+        <span
           v-for="(bool, item) in inventory.filters.gems"
-          :alt="titleCase(item + '-gem')"
-          class="sub-item small pointer"
-          :data-selected="bool"
-          role="button"
-          tabindex="0"
-          :src="'/zora-pond-tracker/sprites/1.1.6/gem-' + item + '.png'"
-          @click="inventory.filters.gems[item] = !inventory.filters.gems[item]"
-          @keydown.prevent.space="inventory.filters.gems[item] = !inventory.filters.gems[item]"
-          @keyup.prevent.enter="inventory.filters.gems[item] = !inventory.filters.gems[item]"
+          class="sub-item-wrapper"
+          :key="'sub-item-' + item"
         >
+          <img
+            :alt="titleCase(item + '-gem')"
+            class="sub-item small pixel-corners pointer"
+            :data-selected="bool"
+            role="button"
+            tabindex="0"
+            :src="'/zora-pond-tracker/sprites/1.1.6/gem-' + item + '.png'"
+            @click="inventory.filters.gems[item] = !inventory.filters.gems[item]"
+            @keydown.prevent.space="inventory.filters.gems[item] = !inventory.filters.gems[item]"
+            @keyup.prevent.enter="inventory.filters.gems[item] = !inventory.filters.gems[item]"
+          />
+        </span>
       </div>
-      <item-prize :v="inventory" a="red"    b="red"    i="heart"             ></item-prize>
-      <item-prize :v="inventory" a="black"  b="black" :i="swordPrize"        ></item-prize>
-      <item-prize :v="inventory" a="blue"   b="blue"  :i="inventoryPrize"    ></item-prize>
-      <item-prize :v="inventory" a="black"  b="yellow" i="pendant-of-cures"  ></item-prize>
-      <item-prize :v="inventory" a="black"  b="white"  i="pendant-of-revival"></item-prize>
-      <item-prize :v="inventory" a="black" b="purple" i="pendant-of-direction"></item-prize>
-      <item-prize :v="inventory" a="black" b="cyan" i="pendant-of-protection"></item-prize>
-      <item-prize :v="inventory" a="red"    b="blue"   i="cape"              ></item-prize>
-      <item-prize :v="inventory" a="black"  b="green"  i="pendant-of-wealth" ></item-prize>
-      <item-prize :v="inventory" a="white"  b="blue"  :i="shieldPrize"       ></item-prize>
-      <item-prize :v="inventory" a="white"  b="red"   :i="glovePrize"        ></item-prize>
-      <item-prize :v="inventory" a="green"  b="blue"  :i="tunicPrize"        ></item-prize>
-      <item-prize :v="inventory" a="purple" b="green"  i="potion-pink"       ></item-prize>
-      <item-prize :v="inventory" a="cyan"   b="blue"   i="bomb-bag"          ></item-prize>
-      <item-prize :v="inventory" a="green"  b="red"    i="gem-bag"           ></item-prize>
-      <item-prize :v="inventory" a="purple" b="red"    i="rod-of-hearts"     ></item-prize>
-      <item-prize :v="inventory" a="green"  b="green"  i="rod-of-rupees"     ></item-prize>
-      <item-prize :v="inventory" a="green"  b="white"  i="ring-of-rupees"    ></item-prize>
-      <item-prize :v="inventory" a="yellow" b="blue"   i="lamp"              ></item-prize>
-      <item-prize :v="inventory" a="pink"   b="blue"   i="potion-blue"       ></item-prize>
-      <item-prize :v="inventory" a="white"  b="white" :i="bowPrize"          ></item-prize>
-      <item-prize :v="inventory" a="cyan"   b="red"    i="quiver"            ></item-prize>
-      <item-prize :v="inventory" a="purple" b="white"  i="ring-of-hearts"    ></item-prize>
-      <item-prize :v="inventory" a="yellow" b="white"  i="ring-of-arrows"    ></item-prize>
-      <item-prize :v="inventory" a="cyan"   b="white"  i="ring-of-bombs"     ></item-prize>
-      <item-prize :v="inventory" a="cyan"   b="green"  i="rod-of-bombs"      ></item-prize>
-      <item-prize :v="inventory" a="pink"   b="red"    i="potion-red"        ></item-prize>
-      <item-prize :v="inventory" a="purple" b="purple" i="fairy-orb"         ></item-prize>
-      <item-prize :v="inventory" a="pink"   b="white"  i="potion-white"      ></item-prize>
-      <item-prize :v="inventory" a="cyan"   b="cyan"   i="ice-orb"     n="5" ></item-prize>
-      <item-prize :v="inventory" a="yellow" b="yellow" i="fire-orb"    n="4" ></item-prize>
-      <item-prize :v="inventory" a="black"  b="red"    i="pendant-of-health" ></item-prize>
-      <item-prize :v="inventory" a="black"  b="blue"   i="pendant-of-secrets"></item-prize>
-      <item-prize :v="inventory" a="black"  b="pink"   i="pendant-of-magic"  ></item-prize>
-      <item-prize :v="inventory" a="purple" b="blue"   i="rod-of-ice"        ></item-prize>
-      <item-prize :v="inventory" a="yellow" b="green"  i="rod-of-stone"      ></item-prize>
-      <item-prize :v="inventory" a="yellow" b="red"    i="rod-of-fire"       ></item-prize>
-      <item-prize :v="inventory" a="purple" b="cyan"   i="bomb"        n="10"></item-prize>
-      <item-prize :v="inventory" a="pink"   b="green"  i="potion-green"      ></item-prize>
-      <item-prize :v="inventory" a="yellow" b="cyan"   i="magic"       n="2" ></item-prize>
-      <item-prize :v="inventory" a="pink"   b="cyan"   i="food-burger" n="2" ></item-prize>
-      <item-prize :v="inventory" a="pink"   b="yellow" i="can"         n="3" ></item-prize>
-      <item-prize :v="inventory" a="pink"   b="purple" i="food-muffin" n="2" ></item-prize>
-      <item-prize :v="inventory" a="pink"   b="pink"   i="can"         n="2" ></item-prize>
-      <item-prize :v="inventory" a="purple" b="yellow" i="arrows"      n="60"></item-prize>
+      <ItemPrize :v="inventory" a="red"    b="red"    i="heart"                 />
+      <ItemPrize :v="inventory" a="black"  b="black" :i="swordPrize"            />
+      <ItemPrize :v="inventory" a="blue"   b="blue"  :i="inventoryPrize"        />
+      <ItemPrize :v="inventory" a="black"  b="yellow" i="pendant-of-cures"      />
+      <ItemPrize :v="inventory" a="black"  b="white"  i="pendant-of-revival"    />
+      <ItemPrize :v="inventory" a="black"  b="purple" i="pendant-of-direction"  />
+      <ItemPrize :v="inventory" a="black"  b="cyan"   i="pendant-of-protection" />
+      <ItemPrize :v="inventory" a="red"    b="blue"   i="cape"                  />
+      <ItemPrize :v="inventory" a="black"  b="green"  i="pendant-of-wealth"     />
+      <ItemPrize :v="inventory" a="white"  b="blue"  :i="shieldPrize"           />
+      <ItemPrize :v="inventory" a="white"  b="red"   :i="glovePrize"            />
+      <ItemPrize :v="inventory" a="green"  b="blue"  :i="tunicPrize"            />
+      <ItemPrize :v="inventory" a="purple" b="green"  i="potion-pink"           />
+      <ItemPrize :v="inventory" a="cyan"   b="blue"   i="bomb-bag"              />
+      <ItemPrize :v="inventory" a="green"  b="red"    i="gem-bag"               />
+      <ItemPrize :v="inventory" a="purple" b="red"    i="rod-of-hearts"         />
+      <ItemPrize :v="inventory" a="green"  b="green"  i="rod-of-rupees"         />
+      <ItemPrize :v="inventory" a="green"  b="white"  i="ring-of-rupees"        />
+      <ItemPrize :v="inventory" a="yellow" b="blue"   i="lamp"                  />
+      <ItemPrize :v="inventory" a="pink"   b="blue"   i="potion-blue"           />
+      <ItemPrize :v="inventory" a="white"  b="white" :i="bowPrize"              />
+      <ItemPrize :v="inventory" a="cyan"   b="red"    i="quiver"                />
+      <ItemPrize :v="inventory" a="purple" b="white"  i="ring-of-hearts"        />
+      <ItemPrize :v="inventory" a="yellow" b="white"  i="ring-of-arrows"        />
+      <ItemPrize :v="inventory" a="cyan"   b="white"  i="ring-of-bombs"         />
+      <ItemPrize :v="inventory" a="cyan"   b="green"  i="rod-of-bombs"          />
+      <ItemPrize :v="inventory" a="pink"   b="red"    i="potion-red"            />
+      <ItemPrize :v="inventory" a="purple" b="purple" i="fairy-orb"             />
+      <ItemPrize :v="inventory" a="pink"   b="white"  i="potion-white"          />
+      <ItemPrize :v="inventory" a="cyan"   b="cyan"   i="ice-orb"     n="5"     />
+      <ItemPrize :v="inventory" a="yellow" b="yellow" i="fire-orb"    n="4"     />
+      <ItemPrize :v="inventory" a="black"  b="red"    i="pendant-of-health"     />
+      <ItemPrize :v="inventory" a="black"  b="blue"   i="pendant-of-secrets"    />
+      <ItemPrize :v="inventory" a="black"  b="pink"   i="pendant-of-magic"      />
+      <ItemPrize :v="inventory" a="purple" b="blue"   i="rod-of-ice"            />
+      <ItemPrize :v="inventory" a="yellow" b="green"  i="rod-of-stone"          />
+      <ItemPrize :v="inventory" a="yellow" b="red"    i="rod-of-fire"           />
+      <ItemPrize :v="inventory" a="purple" b="cyan"   i="bomb"        n="10"    />
+      <ItemPrize :v="inventory" a="pink"   b="green"  i="potion-green"          />
+      <ItemPrize :v="inventory" a="yellow" b="cyan"   i="magic"       n="2"     />
+      <ItemPrize :v="inventory" a="pink"   b="cyan"   i="food-burger" n="2"     />
+      <ItemPrize :v="inventory" a="pink"   b="yellow" i="can"         n="3"     />
+      <ItemPrize :v="inventory" a="pink"   b="purple" i="food-muffin" n="2"     />
+      <ItemPrize :v="inventory" a="pink"   b="pink"   i="can"         n="2"     />
+      <ItemPrize :v="inventory" a="purple" b="yellow" i="arrows"      n="60"    />
     </section>
 
     <h3>Dwarven Maze</h3>
@@ -119,7 +131,11 @@
         target="_blank"
         style="display: inline-block;"
       >
-        <img src="/zora-pond-tracker/dwarven-maze.jpg" class="maze" alt="Dwarven Maze Map">
+        <img
+          alt="Dwarven Maze Map"
+          class="maze pixel-corners"
+          src="/zora-pond-tracker/dwarven-maze.jpg"
+        />
       </a>
     </section>
     <footer></footer>

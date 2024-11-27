@@ -1,21 +1,23 @@
 <template>
-  <div class="inventory-item">
-    <img
-      :alt="alt"
-      class="pointer"
-      role="button"
-      tabindex="0"
-      :src="src || '/zora-pond-tracker/sprites/1.1.6/' + alt.toLowerCase() + modelValue + '.png'"
-      @click="emit(modelValue + 1)"
-      @keydown.prevent.space="emit(modelValue + 1)"
-      @keyup.enter="emit(modelValue + 1)"
-    >
-    <NumberField
-      :modelValue="modelValue"
-      :min="min"
-      :max="max"
-      @update:modelValue="emit"
-    />
+  <div class="inventory-item-wrapper">
+    <div class="inventory-item pixel-corners">
+      <img
+        :alt="alt"
+        class="pointer"
+        role="button"
+        tabindex="0"
+        :src="src || '/zora-pond-tracker/sprites/1.1.6/' + alt.toLowerCase() + modelValue + '.png'"
+        @click="emit(modelValue + 1)"
+        @keydown.prevent.space="emit(modelValue + 1)"
+        @keyup.enter="emit(modelValue + 1)"
+      >
+      <NumberField
+        :modelValue="modelValue"
+        :min="min"
+        :max="max"
+        @update:modelValue="emit"
+      />
+    </div>
   </div>
 </template>
 

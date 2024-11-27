@@ -1,65 +1,67 @@
 <template>
-  <div
-    v-if="showPrize"
-    class="prize"
-    :class="{ 'prize-dim': !valid }"
-  >
-    <span v-if="isRupee">
-      <img
-        alt="Rupees"
-        :class="{
-          dim: !valid,
-          pointer: valid
-        }"
-        role="button"
-        src="/zora-pond-tracker/sprites/1.1.6/rupee.gif"
-        tabindex="0"
-        @click="acquire"
-        @keydown.prevent.space="acquire"
-        @keyup.enter="acquire"
-      >
-    </span>
-    <span
-      v-else
-      class="prize-image"
+  <div class="prize-wrapper">
+    <div
+      v-if="showPrize"
+      class="prize pixel-corners"
+      :class="{ 'prize-dim': !valid }"
     >
-      <img
-        :alt="titleCase(i)"
-        :class="{
-          dim: !valid,
-          pointer: valid
-        }"
-        role="button"
-        :src="'/zora-pond-tracker/sprites/1.1.6/' + i + '.png'"
-        tabindex="0"
-        @click="acquire"
-        @keydown.prevent.space="acquire"
-        @keyup.enter="acquire"
-      >
-      <span
-        v-if="n"
-        class="prize-amount"
-      >
+      <span v-if="isRupee">
         <img
-          v-for="number in amount"
-          :alt="number"
-          :class="{ dim: !valid }"
-          :src="'/zora-pond-tracker/sprites/1.1.6/' + number + '.png'"
+          alt="Rupees"
+          :class="{
+            dim: !valid,
+            pointer: valid
+          }"
+          role="button"
+          src="/zora-pond-tracker/sprites/1.1.6/rupee.gif"
+          tabindex="0"
+          @click="acquire"
+          @keydown.prevent.space="acquire"
+          @keyup.enter="acquire"
         >
       </span>
-    </span>
-    <span class="offerings">
-      <img
-        :alt="titleCase(a + '-gem')"
-        :class="{ dim: v.gems[a] < 1 }"
-        :src="'/zora-pond-tracker/sprites/1.1.6/gem-' + a + '.png'"
-      />
-      <img
-        :alt="titleCase(b + '-gem')"
-        :class="secondGemStyles"
-        :src="'/zora-pond-tracker/sprites/1.1.6/gem-' + b + '.png'"
-      />
-    </span>
+      <span
+        v-else
+        class="prize-image"
+      >
+        <img
+          :alt="titleCase(i)"
+          :class="{
+            dim: !valid,
+            pointer: valid
+          }"
+          role="button"
+          :src="'/zora-pond-tracker/sprites/1.1.6/' + i + '.png'"
+          tabindex="0"
+          @click="acquire"
+          @keydown.prevent.space="acquire"
+          @keyup.enter="acquire"
+        >
+        <span
+          v-if="n"
+          class="prize-amount"
+        >
+          <img
+            v-for="number in amount"
+            :alt="number"
+            :class="{ dim: !valid }"
+            :src="'/zora-pond-tracker/sprites/1.1.6/' + number + '.png'"
+          >
+        </span>
+      </span>
+      <span class="offerings">
+        <img
+          :alt="titleCase(a + '-gem')"
+          :class="{ dim: v.gems[a] < 1 }"
+          :src="'/zora-pond-tracker/sprites/1.1.6/gem-' + a + '.png'"
+        />
+        <img
+          :alt="titleCase(b + '-gem')"
+          :class="secondGemStyles"
+          :src="'/zora-pond-tracker/sprites/1.1.6/gem-' + b + '.png'"
+        />
+      </span>
+    </div>
   </div>
 </template>
 
