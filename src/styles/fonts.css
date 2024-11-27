@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'triforce';
+  src: url('/zora-pond-tracker/fonts/triforce.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ganon';
+  src: url('/zora-pond-tracker/fonts/returnofganon.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}

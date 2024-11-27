@@ -1,12 +1,23 @@
 {
   "name": "zora-pond-tracker",
+  "type": "module",
   "version": "1.0.0",
   "description": "Zora Pond item tracker for Dungeons of Infinity",
   "main": "index.html",
   "scripts": {
-    "start": "vite"
+    "start": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint *.js src",
+    "fix": "npm run lint -- --fix"
+  },
+  "dependencies": {
+    "normalize.css": "^8.0.1",
+    "vue": "^3.5.13",
+    "vue-options-api-constants-plugin": "^1.0.1"
   },
   "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
     "vite": "^5.4.11"
   },
   "license": "MIT",
