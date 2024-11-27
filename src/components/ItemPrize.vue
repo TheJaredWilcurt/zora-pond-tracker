@@ -56,9 +56,9 @@
           :src="'/zora-pond-tracker/sprites/1.1.6/gem-' + gemA + '.png'"
         />
         <img
-          :alt="titleCase(b + '-gem')"
+          :alt="titleCase(gemB + '-gem')"
           :class="secondGemStyles"
-          :src="'/zora-pond-tracker/sprites/1.1.6/gem-' + b + '.png'"
+          :src="'/zora-pond-tracker/sprites/1.1.6/gem-' + gemB + '.png'"
         />
       </span>
     </div>
@@ -72,7 +72,7 @@ export default {
   name: 'ItemPrize',
   props: [
     'gemA',
-    'b',
+    'gemB',
     'prize',
     'inventory',
     'amount'
@@ -83,7 +83,7 @@ export default {
         return;
       }
       let gem1 = this.gemA;
-      let gem2 = this.b;
+      let gem2 = this.gemB;
       let item = this.prize;
       let inventory = this.inventory;
       inventory.gems[gem1]--;
@@ -114,7 +114,7 @@ export default {
     },
     showPrize: function () {
       let gem1 = this.gemA;
-      let gem2 = this.b;
+      let gem2 = this.gemB;
       let item = this.prize;
       let inventory = this.inventory;
       const amount = this.amount;
@@ -155,7 +155,7 @@ export default {
     },
     valid: function () {
       let gem1 = this.gemA;
-      let gem2 = this.b;
+      let gem2 = this.gemB;
       let item = this.prize;
       let inventory = this.inventory;
       const amount = this.amount;
@@ -182,11 +182,14 @@ export default {
       return false;
     },
     amountCharacters: function () {
-      return (this.amount + '').split('');
+      if (this.amount !== undefined) {
+        return (this.amount + '').split('');
+      }
+      return undefined;
     },
     secondGemStyles: function () {
       let gem1 = this.gemA;
-      let gem2 = this.b;
+      let gem2 = this.gemB;
       let inventory = this.inventory;
       const sameGem = gem1 === gem2;
       const gem2Amount = inventory.gems[gem2];

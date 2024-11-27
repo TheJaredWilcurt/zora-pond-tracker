@@ -81,7 +81,7 @@
         v-for="gemCombo in prizePool"
         :inventory="inventory"
         :gemA="gemCombo.gemA"
-        :b="gemCombo.gemB"
+        :gemB="gemCombo.gemB"
         :prize="gemCombo.prize"
         :amount="gemCombo.amount"
       />
