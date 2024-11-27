@@ -77,51 +77,14 @@
           />
         </span>
       </div>
-      <ItemPrize :v="inventory" a="red"    b="red"    i="heart"                 />
-      <ItemPrize :v="inventory" a="black"  b="black" :i="swordPrize"            />
-      <ItemPrize :v="inventory" a="blue"   b="blue"  :i="inventoryPrize"        />
-      <ItemPrize :v="inventory" a="black"  b="yellow" i="pendant-of-cures"      />
-      <ItemPrize :v="inventory" a="black"  b="white"  i="pendant-of-revival"    />
-      <ItemPrize :v="inventory" a="black"  b="purple" i="pendant-of-direction"  />
-      <ItemPrize :v="inventory" a="black"  b="cyan"   i="pendant-of-protection" />
-      <ItemPrize :v="inventory" a="red"    b="blue"   i="cape"                  />
-      <ItemPrize :v="inventory" a="black"  b="green"  i="pendant-of-wealth"     />
-      <ItemPrize :v="inventory" a="white"  b="blue"  :i="shieldPrize"           />
-      <ItemPrize :v="inventory" a="white"  b="red"   :i="glovePrize"            />
-      <ItemPrize :v="inventory" a="green"  b="blue"  :i="tunicPrize"            />
-      <ItemPrize :v="inventory" a="purple" b="green"  i="potion-pink"           />
-      <ItemPrize :v="inventory" a="cyan"   b="blue"   i="bomb-bag"              />
-      <ItemPrize :v="inventory" a="green"  b="red"    i="gem-bag"               />
-      <ItemPrize :v="inventory" a="purple" b="red"    i="rod-of-hearts"         />
-      <ItemPrize :v="inventory" a="green"  b="green"  i="rod-of-rupees"         />
-      <ItemPrize :v="inventory" a="green"  b="white"  i="ring-of-rupees"        />
-      <ItemPrize :v="inventory" a="yellow" b="blue"   i="lamp"                  />
-      <ItemPrize :v="inventory" a="pink"   b="blue"   i="potion-blue"           />
-      <ItemPrize :v="inventory" a="white"  b="white" :i="bowPrize"              />
-      <ItemPrize :v="inventory" a="cyan"   b="red"    i="quiver"                />
-      <ItemPrize :v="inventory" a="purple" b="white"  i="ring-of-hearts"        />
-      <ItemPrize :v="inventory" a="yellow" b="white"  i="ring-of-arrows"        />
-      <ItemPrize :v="inventory" a="cyan"   b="white"  i="ring-of-bombs"         />
-      <ItemPrize :v="inventory" a="cyan"   b="green"  i="rod-of-bombs"          />
-      <ItemPrize :v="inventory" a="pink"   b="red"    i="potion-red"            />
-      <ItemPrize :v="inventory" a="purple" b="purple" i="fairy-orb"             />
-      <ItemPrize :v="inventory" a="pink"   b="white"  i="potion-white"          />
-      <ItemPrize :v="inventory" a="cyan"   b="cyan"   i="ice-orb"     n="5"     />
-      <ItemPrize :v="inventory" a="yellow" b="yellow" i="fire-orb"    n="4"     />
-      <ItemPrize :v="inventory" a="black"  b="red"    i="pendant-of-health"     />
-      <ItemPrize :v="inventory" a="black"  b="blue"   i="pendant-of-secrets"    />
-      <ItemPrize :v="inventory" a="black"  b="pink"   i="pendant-of-magic"      />
-      <ItemPrize :v="inventory" a="purple" b="blue"   i="rod-of-ice"            />
-      <ItemPrize :v="inventory" a="yellow" b="green"  i="rod-of-stone"          />
-      <ItemPrize :v="inventory" a="yellow" b="red"    i="rod-of-fire"           />
-      <ItemPrize :v="inventory" a="purple" b="cyan"   i="bomb"        n="10"    />
-      <ItemPrize :v="inventory" a="pink"   b="green"  i="potion-green"          />
-      <ItemPrize :v="inventory" a="yellow" b="cyan"   i="magic"       n="2"     />
-      <ItemPrize :v="inventory" a="pink"   b="cyan"   i="food-burger" n="2"     />
-      <ItemPrize :v="inventory" a="pink"   b="yellow" i="can"         n="3"     />
-      <ItemPrize :v="inventory" a="pink"   b="purple" i="food-muffin" n="2"     />
-      <ItemPrize :v="inventory" a="pink"   b="pink"   i="can"         n="2"     />
-      <ItemPrize :v="inventory" a="purple" b="yellow" i="arrows"      n="60"    />
+      <ItemPrize
+        v-for="gemCombo in prizePool"
+        :inventory="inventory"
+        :a="gemCombo.itemA"
+        :b="gemCombo.itemB"
+        :i="gemCombo.prize"
+        :n="gemCombo.amount"
+      />
     </section>
 
     <h3>Dwarven Maze</h3>
@@ -226,6 +189,244 @@ export default {
     titleCase
   },
   computed: {
+    prizePool: function () {
+      return [
+        {
+          itemA: 'red',
+          itemB: 'red',
+          prize: 'heart'
+        },
+        {
+          itemA: 'black',
+          itemB: 'black',
+          prize: this.swordPrize
+        },
+        {
+          itemA: 'blue',
+          itemB: 'blue',
+          prize: this.inventoryPrize
+        },
+        {
+          itemA: 'black',
+          itemB: 'yellow',
+          prize: 'pendant-of-cures'
+        },
+        {
+          itemA: 'black',
+          itemB: 'white',
+          prize: 'pendant-of-revival'
+        },
+        {
+          itemA: 'black',
+          itemB: 'purple',
+          prize: 'pendant-of-direction'
+        },
+        {
+          itemA: 'black',
+          itemB: 'cyan',
+          prize: 'pendant-of-protection'
+        },
+        {
+          itemA: 'red',
+          itemB: 'blue',
+          prize: 'cape'
+        },
+        {
+          itemA: 'black',
+          itemB: 'green',
+          prize: 'pendant-of-wealth'
+        },
+        {
+          itemA: 'white',
+          itemB: 'blue',
+          prize: this.shieldPrize
+        },
+        {
+          itemA: 'white',
+          itemB: 'red',
+          prize: this.glovePrize
+        },
+        {
+          itemA: 'green',
+          itemB: 'blue',
+          prize: this.tunicPrize
+        },
+        {
+          itemA: 'purple',
+          itemB: 'green',
+          prize: 'potion-pink'
+        },
+        {
+          itemA: 'cyan',
+          itemB: 'blue',
+          prize: 'bomb-bag'
+        },
+        {
+          itemA: 'green',
+          itemB: 'red',
+          prize: 'gem-bag'
+        },
+        {
+          itemA: 'purple',
+          itemB: 'red',
+          prize: 'rod-of-hearts'
+        },
+        {
+          itemA: 'green',
+          itemB: 'green',
+          prize: 'rod-of-rupees'
+        },
+        {
+          itemA: 'green',
+          itemB: 'white',
+          prize: 'ring-of-rupees'
+        },
+        {
+          itemA: 'yellow',
+          itemB: 'blue',
+          prize: 'lamp'
+        },
+        {
+          itemA: 'pink',
+          itemB: 'blue',
+          prize: 'potion-blue'
+        },
+        {
+          itemA: 'white',
+          itemB: 'white',
+          prize: this.bowPrize
+        },
+        {
+          itemA: 'cyan',
+          itemB: 'red',
+          prize: 'quiver'
+        },
+        {
+          itemA: 'purple',
+          itemB: 'white',
+          prize: 'ring-of-hearts'
+        },
+        {
+          itemA: 'yellow',
+          itemB: 'white',
+          prize: 'ring-of-arrows'
+        },
+        {
+          itemA: 'cyan',
+          itemB: 'white',
+          prize: 'ring-of-bombs'
+        },
+        {
+          itemA: 'cyan',
+          itemB: 'green',
+          prize: 'rod-of-bombs'
+        },
+        {
+          itemA: 'pink',
+          itemB: 'red',
+          prize: 'potion-red'
+        },
+        {
+          itemA: 'purple',
+          itemB: 'purple',
+          prize: 'fairy-orb'
+        },
+        {
+          itemA: 'pink',
+          itemB: 'white',
+          prize: 'potion-white'
+        },
+        {
+          itemA: 'cyan',
+          itemB: 'cyan',
+          prize: 'ice-orb',
+          amount: 5
+        },
+        {
+          itemA: 'yellow',
+          itemB: 'yellow',
+          prize: 'fire-orb',
+          amount: 4
+        },
+        {
+          itemA: 'black',
+          itemB: 'red',
+          prize: 'pendant-of-health'
+        },
+        {
+          itemA: 'black',
+          itemB: 'blue',
+          prize: 'pendant-of-secrets'
+        },
+        {
+          itemA: 'black',
+          itemB: 'pink',
+          prize: 'pendant-of-magic'
+        },
+        {
+          itemA: 'purple',
+          itemB: 'blue',
+          prize: 'rod-of-ice'
+        },
+        {
+          itemA: 'yellow',
+          itemB: 'green',
+          prize: 'rod-of-stone'
+        },
+        {
+          itemA: 'yellow',
+          itemB: 'red',
+          prize: 'rod-of-fire'
+        },
+        {
+          itemA: 'purple',
+          itemB: 'cyan',
+          prize: 'bomb',
+          amount: 10
+        },
+        {
+          itemA: 'pink',
+          itemB: 'green',
+          prize: 'potion-green'
+        },
+        {
+          itemA: 'yellow',
+          itemB: 'cyan',
+          prize: 'magic',
+          amount: 2
+        },
+        {
+          itemA: 'pink',
+          itemB: 'cyan',
+          prize: 'food-burger',
+          amount: 2
+        },
+        {
+          itemA: 'pink',
+          itemB: 'yellow',
+          prize: 'can',
+          amount: 3
+        },
+        {
+          itemA: 'pink',
+          itemB: 'purple',
+          prize: 'food-muffin',
+          amount: 2
+        },
+        {
+          itemA: 'pink',
+          itemB: 'pink',
+          prize: 'can',
+          amount: 2
+        },
+        {
+          itemA: 'purple',
+          itemB: 'yellow',
+          prize: 'arrows',
+          amount: 60
+        }
+      ];
+    },
     bowPrize: function () {
       const bowLevel = this.inventory.bow;
       if (this.version === '1.1.6') {

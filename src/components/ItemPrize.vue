@@ -52,7 +52,7 @@
       <span class="offerings">
         <img
           :alt="titleCase(a + '-gem')"
-          :class="{ dim: v.gems[a] < 1 }"
+          :class="{ dim: inventory.gems[a] < 1 }"
           :src="'/zora-pond-tracker/sprites/1.1.6/gem-' + a + '.png'"
         />
         <img
@@ -70,7 +70,7 @@ import { titleCase } from '@/helpers/index.js';
 
 export default {
   name: 'ItemPrize',
-  props: ['a', 'b', 'i', 'v', 'n'],
+  props: ['a', 'b', 'i', 'inventory', 'n'],
   methods: {
     acquire: function () {
       if (!this.valid) {
@@ -79,7 +79,7 @@ export default {
       let gem1 = this.a;
       let gem2 = this.b;
       let item = this.i;
-      let inventory = this.v;
+      let inventory = this.inventory;
       inventory.gems[gem1]--;
       inventory.gems[gem2]--;
       let itemEndsInNumber = '0123456789'.split('').includes(item[item.length - 1]);
@@ -100,7 +100,7 @@ export default {
   computed: {
     isRupee: function () {
       const item = this.i;
-      const inventory = this.v;
+      const inventory = this.inventory;
       return (
         item === 'rupee' ||
         inventory.booleans[item]
@@ -110,7 +110,7 @@ export default {
       let gem1 = this.a;
       let gem2 = this.b;
       let item = this.i;
-      let inventory = this.v;
+      let inventory = this.inventory;
       const amount = this.n;
       const sameGem = gem1 === gem2;
       const gem1Amount = inventory.gems[gem1];
@@ -151,7 +151,7 @@ export default {
       let gem1 = this.a;
       let gem2 = this.b;
       let item = this.i;
-      let inventory = this.v;
+      let inventory = this.inventory;
       const amount = this.n;
       const sameGem = gem1 === gem2;
       const gem1Amount = inventory.gems[gem1];
@@ -181,7 +181,7 @@ export default {
     secondGemStyles: function () {
       let gem1 = this.a;
       let gem2 = this.b;
-      let inventory = this.v;
+      let inventory = this.inventory;
       const sameGem = gem1 === gem2;
       const gem2Amount = inventory.gems[gem2];
       if (sameGem && gem2Amount < 2) {
