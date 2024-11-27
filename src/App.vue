@@ -80,8 +80,8 @@
       <ItemPrize
         v-for="gemCombo in prizePool"
         :inventory="inventory"
-        :a="gemCombo.itemA"
-        :b="gemCombo.itemB"
+        :gemA="gemCombo.gemA"
+        :b="gemCombo.gemB"
         :prize="gemCombo.prize"
         :amount="gemCombo.amount"
       />
@@ -192,236 +192,236 @@ export default {
     prizePool: function () {
       return [
         {
-          itemA: 'red',
-          itemB: 'red',
+          gemA: 'red',
+          gemB: 'red',
           prize: 'heart'
         },
         {
-          itemA: 'black',
-          itemB: 'black',
+          gemA: 'black',
+          gemB: 'black',
           prize: this.swordPrize
         },
         {
-          itemA: 'blue',
-          itemB: 'blue',
+          gemA: 'blue',
+          gemB: 'blue',
           prize: this.inventoryPrize
         },
         {
-          itemA: 'black',
-          itemB: 'yellow',
+          gemA: 'black',
+          gemB: 'yellow',
           prize: 'pendant-of-cures'
         },
         {
-          itemA: 'black',
-          itemB: 'white',
+          gemA: 'black',
+          gemB: 'white',
           prize: 'pendant-of-revival'
         },
         {
-          itemA: 'black',
-          itemB: 'purple',
+          gemA: 'black',
+          gemB: 'purple',
           prize: 'pendant-of-direction'
         },
         {
-          itemA: 'black',
-          itemB: 'cyan',
+          gemA: 'black',
+          gemB: 'cyan',
           prize: 'pendant-of-protection'
         },
         {
-          itemA: 'red',
-          itemB: 'blue',
+          gemA: 'red',
+          gemB: 'blue',
           prize: 'cape'
         },
         {
-          itemA: 'black',
-          itemB: 'green',
+          gemA: 'black',
+          gemB: 'green',
           prize: 'pendant-of-wealth'
         },
         {
-          itemA: 'white',
-          itemB: 'blue',
+          gemA: 'white',
+          gemB: 'blue',
           prize: this.shieldPrize
         },
         {
-          itemA: 'white',
-          itemB: 'red',
+          gemA: 'white',
+          gemB: 'red',
           prize: this.glovePrize
         },
         {
-          itemA: 'green',
-          itemB: 'blue',
+          gemA: 'green',
+          gemB: 'blue',
           prize: this.tunicPrize
         },
         {
-          itemA: 'purple',
-          itemB: 'green',
+          gemA: 'purple',
+          gemB: 'green',
           prize: 'potion-pink'
         },
         {
-          itemA: 'cyan',
-          itemB: 'blue',
+          gemA: 'cyan',
+          gemB: 'blue',
           prize: 'bomb-bag'
         },
         {
-          itemA: 'green',
-          itemB: 'red',
+          gemA: 'green',
+          gemB: 'red',
           prize: 'gem-bag'
         },
         {
-          itemA: 'purple',
-          itemB: 'red',
+          gemA: 'purple',
+          gemB: 'red',
           prize: 'rod-of-hearts'
         },
         {
-          itemA: 'green',
-          itemB: 'green',
+          gemA: 'green',
+          gemB: 'green',
           prize: 'rod-of-rupees'
         },
         {
-          itemA: 'green',
-          itemB: 'white',
+          gemA: 'green',
+          gemB: 'white',
           prize: 'ring-of-rupees'
         },
         {
-          itemA: 'yellow',
-          itemB: 'blue',
+          gemA: 'yellow',
+          gemB: 'blue',
           prize: 'lamp'
         },
         {
-          itemA: 'pink',
-          itemB: 'blue',
+          gemA: 'pink',
+          gemB: 'blue',
           prize: 'potion-blue'
         },
         {
-          itemA: 'white',
-          itemB: 'white',
+          gemA: 'white',
+          gemB: 'white',
           prize: this.bowPrize
         },
         {
-          itemA: 'cyan',
-          itemB: 'red',
+          gemA: 'cyan',
+          gemB: 'red',
           prize: 'quiver'
         },
         {
-          itemA: 'purple',
-          itemB: 'white',
+          gemA: 'purple',
+          gemB: 'white',
           prize: 'ring-of-hearts'
         },
         {
-          itemA: 'yellow',
-          itemB: 'white',
+          gemA: 'yellow',
+          gemB: 'white',
           prize: 'ring-of-arrows'
         },
         {
-          itemA: 'cyan',
-          itemB: 'white',
+          gemA: 'cyan',
+          gemB: 'white',
           prize: 'ring-of-bombs'
         },
         {
-          itemA: 'cyan',
-          itemB: 'green',
+          gemA: 'cyan',
+          gemB: 'green',
           prize: 'rod-of-bombs'
         },
         {
-          itemA: 'pink',
-          itemB: 'red',
+          gemA: 'pink',
+          gemB: 'red',
           prize: 'potion-red'
         },
         {
-          itemA: 'purple',
-          itemB: 'purple',
+          gemA: 'purple',
+          gemB: 'purple',
           prize: 'fairy-orb'
         },
         {
-          itemA: 'pink',
-          itemB: 'white',
+          gemA: 'pink',
+          gemB: 'white',
           prize: 'potion-white'
         },
         {
-          itemA: 'cyan',
-          itemB: 'cyan',
+          gemA: 'cyan',
+          gemB: 'cyan',
           prize: 'ice-orb',
           amount: 5
         },
         {
-          itemA: 'yellow',
-          itemB: 'yellow',
+          gemA: 'yellow',
+          gemB: 'yellow',
           prize: 'fire-orb',
           amount: 4
         },
         {
-          itemA: 'black',
-          itemB: 'red',
+          gemA: 'black',
+          gemB: 'red',
           prize: 'pendant-of-health'
         },
         {
-          itemA: 'black',
-          itemB: 'blue',
+          gemA: 'black',
+          gemB: 'blue',
           prize: 'pendant-of-secrets'
         },
         {
-          itemA: 'black',
-          itemB: 'pink',
+          gemA: 'black',
+          gemB: 'pink',
           prize: 'pendant-of-magic'
         },
         {
-          itemA: 'purple',
-          itemB: 'blue',
+          gemA: 'purple',
+          gemB: 'blue',
           prize: 'rod-of-ice'
         },
         {
-          itemA: 'yellow',
-          itemB: 'green',
+          gemA: 'yellow',
+          gemB: 'green',
           prize: 'rod-of-stone'
         },
         {
-          itemA: 'yellow',
-          itemB: 'red',
+          gemA: 'yellow',
+          gemB: 'red',
           prize: 'rod-of-fire'
         },
         {
-          itemA: 'purple',
-          itemB: 'cyan',
+          gemA: 'purple',
+          gemB: 'cyan',
           prize: 'bomb',
           amount: 10
         },
         {
-          itemA: 'pink',
-          itemB: 'green',
+          gemA: 'pink',
+          gemB: 'green',
           prize: 'potion-green'
         },
         {
-          itemA: 'yellow',
-          itemB: 'cyan',
+          gemA: 'yellow',
+          gemB: 'cyan',
           prize: 'magic',
           amount: 2
         },
         {
-          itemA: 'pink',
-          itemB: 'cyan',
+          gemA: 'pink',
+          gemB: 'cyan',
           prize: 'food-burger',
           amount: 2
         },
         {
-          itemA: 'pink',
-          itemB: 'yellow',
+          gemA: 'pink',
+          gemB: 'yellow',
           prize: 'can',
           amount: 3
         },
         {
-          itemA: 'pink',
-          itemB: 'purple',
+          gemA: 'pink',
+          gemB: 'purple',
           prize: 'food-muffin',
           amount: 2
         },
         {
-          itemA: 'pink',
-          itemB: 'pink',
+          gemA: 'pink',
+          gemB: 'pink',
           prize: 'can',
           amount: 2
         },
         {
-          itemA: 'purple',
-          itemB: 'yellow',
+          gemA: 'purple',
+          gemB: 'yellow',
           prize: 'arrows',
           amount: 60
         }

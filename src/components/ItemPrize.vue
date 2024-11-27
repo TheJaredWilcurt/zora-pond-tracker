@@ -51,9 +51,9 @@
       </span>
       <span class="offerings">
         <img
-          :alt="titleCase(a + '-gem')"
-          :class="{ dim: inventory.gems[a] < 1 }"
-          :src="'/zora-pond-tracker/sprites/1.1.6/gem-' + a + '.png'"
+          :alt="titleCase(gemA + '-gem')"
+          :class="{ dim: inventory.gems[gemA] < 1 }"
+          :src="'/zora-pond-tracker/sprites/1.1.6/gem-' + gemA + '.png'"
         />
         <img
           :alt="titleCase(b + '-gem')"
@@ -71,7 +71,7 @@ import { titleCase } from '@/helpers/index.js';
 export default {
   name: 'ItemPrize',
   props: [
-    'a',
+    'gemA',
     'b',
     'prize',
     'inventory',
@@ -82,7 +82,7 @@ export default {
       if (!this.valid) {
         return;
       }
-      let gem1 = this.a;
+      let gem1 = this.gemA;
       let gem2 = this.b;
       let item = this.prize;
       let inventory = this.inventory;
@@ -113,7 +113,7 @@ export default {
       );
     },
     showPrize: function () {
-      let gem1 = this.a;
+      let gem1 = this.gemA;
       let gem2 = this.b;
       let item = this.prize;
       let inventory = this.inventory;
@@ -154,7 +154,7 @@ export default {
       return true;
     },
     valid: function () {
-      let gem1 = this.a;
+      let gem1 = this.gemA;
       let gem2 = this.b;
       let item = this.prize;
       let inventory = this.inventory;
@@ -185,7 +185,7 @@ export default {
       return (this.amount + '').split('');
     },
     secondGemStyles: function () {
-      let gem1 = this.a;
+      let gem1 = this.gemA;
       let gem2 = this.b;
       let inventory = this.inventory;
       const sameGem = gem1 === gem2;
