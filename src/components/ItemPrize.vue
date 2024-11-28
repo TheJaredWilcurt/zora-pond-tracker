@@ -82,45 +82,34 @@ export default {
       if (!this.valid) {
         return;
       }
-      let gem1 = this.gemA;
-      let gem2 = this.gemB;
-      let item = this.prize;
-      let inventory = this.inventory;
-      inventory.gems[gem1]--;
-      inventory.gems[gem2]--;
-      let itemEndsInNumber = '0123456789'.split('').includes(item[item.length - 1]);
-      let itemWithoutNumber = item;
+      this.inventory.gems[this.gemA]--;
+      this.inventory.gems[this.gemB]--;
+      const itemEndsInNumber = '0123456789'.split('').includes(prize[prize.length - 1]);
+      let itemWithoutNumber = prize;
       if (itemEndsInNumber) {
-        itemWithoutNumber = item.substring(0, item.length - 1);
+        itemWithoutNumber = prize.substring(0, prize.length - 1);
       }
       if (this.isRupee) {
         return;
-      } else if (inventory.booleans.hasOwnProperty(itemWithoutNumber)) {
-        inventory.booleans[itemWithoutNumber] = true;
-      } else if (inventory.hasOwnProperty(itemWithoutNumber)) {
-        inventory[itemWithoutNumber]++;
+      } else if (this.inventory.booleans.hasOwnProperty(itemWithoutNumber)) {
+        this.inventory.booleans[itemWithoutNumber] = true;
+      } else if (this.inventory.hasOwnProperty(itemWithoutNumber)) {
+        this.inventory[itemWithoutNumber]++;
       }
     },
     titleCase
   },
   computed: {
     isRupee: function () {
-      const item = this.prize;
-      const inventory = this.inventory;
       return (
-        item === 'rupee' ||
-        inventory.booleans[item]
+        this.prize === 'rupee' ||
+        this.inventory.booleans[this.prize]
       );
     },
     showPrize: function () {
-      let gem1 = this.gemA;
-      let gem2 = this.gemB;
-      let item = this.prize;
-      let inventory = this.inventory;
-      const amount = this.amount;
-      const sameGem = gem1 === gem2;
-      const gem1Amount = inventory.gems[gem1];
-      const gem2Amount = inventory.gems[gem2];
+      const sameGem = this.gemA === this.gemB;
+      const gem1Amount = this.inventory.gems[this.gemA];
+      const gem2Amount = this.inventory.gems[this.gemB];
       const gem1Unobtainable = !sameGem && gem1Amount < 1;
       const gem2Unobtainable = !sameGem && gem2Amount < 1;
       const sameGemUnobtainable = sameGem && gem1Amount < 2;
@@ -129,16 +118,16 @@ export default {
         (sameGem && gem1Amount > 1) ||
         (!sameGem && gem1Amount > 0 && gem2Amount > 0)
       );
-      const gem1FilteredOut = !inventory.filters.gems[gem1];
-      const gem2FilteredOut = !inventory.filters.gems[gem2];
+      const gem1FilteredOut = !this.inventory.filters.gems[this.gemA];
+      const gem2FilteredOut = !this.inventory.filters.gems[this.gemB];
 
-      const hideRupees = this.isRupee && !inventory.filters.showRupees;
+      const hideRupees = this.isRupee && !this.inventory.filters.showRupees;
       const skipAntidote = (
-        inventory.booleans['pendant-of-cures'] &&
-        item === 'potion-pink'
+        this.inventory.booleans['pendant-of-cures'] &&
+        this.prize === 'potion-pink'
       );
-      const skipUnobtainable = unobtainable && !inventory.filters.showUnavailable;
-      const skipObtainable = obtainable && !inventory.filters.showAvailable;
+      const skipUnobtainable = unobtainable && !this.inventory.filters.showUnavailable;
+      const skipObtainable = obtainable && !this.inventory.filters.showAvailable;
       const gemsFilteredOut = gem1FilteredOut || gem2FilteredOut;
 
       if (
@@ -154,32 +143,29 @@ export default {
       return true;
     },
     valid: function () {
-      let gem1 = this.gemA;
-      let gem2 = this.gemB;
-      let item = this.prize;
-      let inventory = this.inventory;
-      const amount = this.amount;
-      const sameGem = gem1 === gem2;
-      const gem1Amount = inventory.gems[gem1];
-      const gem2Amount = inventory.gems[gem2];
+      const sameGem = this.gemA === this.gemB;
+      const gem1Amount = this.inventory.gems[this.gemA];
+      const gem2Amount = this.inventory.gems[this.gemB];
 
       const skipAntidote = (
-        inventory.booleans['pendant-of-cures'] &&
-        item === 'potion-pink'
+        this.inventory.booleans['pendant-of-cures'] &&
+        this.prize === 'potion-pink'
       );
 
       if (skipAntidote) {
         return false;
       }
-
-      if (sameGem) {
-        if (gem1Amount > 1) {
-          return true;
-        }
-      } else if (gem1Amount && gem2Amount) {
-        return true
-      }
-      return false;
+      return (
+        (
+          sameGem &&
+          gem1Amount > 1
+        ) ||
+        (
+          !sameGem &&
+          gem1Amount &&
+          gem2Amount
+        )
+      );
     },
     amountCharacters: function () {
       if (this.amount !== undefined) {
@@ -188,11 +174,8 @@ export default {
       return undefined;
     },
     secondGemStyles: function () {
-      let gem1 = this.gemA;
-      let gem2 = this.gemB;
-      let inventory = this.inventory;
-      const sameGem = gem1 === gem2;
-      const gem2Amount = inventory.gems[gem2];
+      const sameGem = this.gemA === this.gemB;
+      const gem2Amount = this.inventory.gems[this.gemB];
       if (sameGem && gem2Amount < 2) {
         return 'dim';
       } else if (gem2Amount < 1) {

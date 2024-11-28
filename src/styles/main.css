@@ -151,6 +151,7 @@ input::-webkit-inner-spin-button {
 .filters {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .prize-wrapper {
