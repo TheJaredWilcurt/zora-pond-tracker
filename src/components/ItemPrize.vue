@@ -13,7 +13,7 @@
             pointer: valid
           }"
           role="button"
-          :src="'/zora-pond-tracker/sprites/1.1.6/rupee.gif'"
+          :src="'/zora-pond-tracker/sprites/' + version + '/rupee.gif'"
           tabindex="0"
           @click="acquire"
           @keydown.prevent.space="acquire"
@@ -31,7 +31,7 @@
             pointer: valid
           }"
           role="button"
-          :src="'/zora-pond-tracker/sprites/1.1.6/' + prize + '.png'"
+          :src="'/zora-pond-tracker/sprites/' + version + '/' + prize + '.png'"
           tabindex="0"
           @click="acquire"
           @keydown.prevent.space="acquire"
@@ -45,7 +45,7 @@
             v-for="number in amountCharacters"
             :alt="number"
             :class="{ dim: !valid }"
-            :src="'/zora-pond-tracker/sprites/1.1.6/' + number + '.png'"
+            :src="'/zora-pond-tracker/sprites/' + version + '/' + number + '.png'"
           >
         </span>
       </span>
@@ -53,12 +53,12 @@
         <img
           :alt="titleCase(gemA + '-gem')"
           :class="{ dim: inventory.gems[gemA] < 1 }"
-          :src="'/zora-pond-tracker/sprites/1.1.6/gem-' + gemA + '.png'"
+          :src="'/zora-pond-tracker/sprites/' + version + '/gem-' + gemA + '.png'"
         />
         <img
           :alt="titleCase(gemB + '-gem')"
           :class="secondGemStyles"
-          :src="'/zora-pond-tracker/sprites/1.1.6/gem-' + gemB + '.png'"
+          :src="'/zora-pond-tracker/sprites/' + version + '/gem-' + gemB + '.png'"
         />
       </span>
     </div>
@@ -75,7 +75,8 @@ export default {
     'gemB',
     'prize',
     'inventory',
-    'amount'
+    'amount',
+    'version'
   ],
   methods: {
     acquire: function () {
