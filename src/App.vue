@@ -22,15 +22,16 @@
         v-for="(gemAmount, gemColor) in inventory.gems"
         v-model="inventory.gems[gemColor]"
         :alt="gemColor + ' colored gem'"
-        :src="'/zora-pond-tracker/sprites/1.1.6/gem-' + gemColor + '.png'"
+        :src="'/zora-pond-tracker/sprites/' + version + '/gem-' + gemColor + '.png'"
+        :version="version"
         :key="gemColor"
-      ></InventoryItem>
-      <InventoryItem v-model="inventory.bag"    alt="Bag"    :min="1" :max="3"></InventoryItem>
-      <InventoryItem v-model="inventory.tunic"  alt="Tunic"  :min="1" :max="4"></InventoryItem>
-      <InventoryItem v-model="inventory.sword"  alt="Sword"           :max="6"></InventoryItem>
-      <InventoryItem v-model="inventory.shield" alt="Shield"          :max="4"></InventoryItem>
-      <InventoryItem v-model="inventory.gloves" alt="Gloves"          :max="3"></InventoryItem>
-      <InventoryItem v-model="inventory.bow"    alt="Bow"             :max="2"></InventoryItem>
+      />
+      <InventoryItem v-model="inventory.bag"    alt="Bag"    :min="1" :max="3" :version="version" />
+      <InventoryItem v-model="inventory.tunic"  alt="Tunic"  :min="1" :max="4" :version="version" />
+      <InventoryItem v-model="inventory.sword"  alt="Sword"           :max="6" :version="version" />
+      <InventoryItem v-model="inventory.shield" alt="Shield"          :max="4" :version="version" />
+      <InventoryItem v-model="inventory.gloves" alt="Gloves"          :max="3" :version="version" />
+      <InventoryItem v-model="inventory.bow"    alt="Bow"             :max="2" :version="version" />
 
       <div>
         <span
@@ -44,7 +45,7 @@
             :data-selected="bool"
             role="button"
             tabindex="0"
-            :src="'/zora-pond-tracker/sprites/1.1.6/' + item + '.png'"
+            :src="'/zora-pond-tracker/sprites/' + version + '/' + item + '.png'"
             @click="inventory.booleans[item] = !inventory.booleans[item]"
             @keydown.prevent.space="inventory.booleans[item] = !inventory.booleans[item]"
             @keyup.prevent.enter="inventory.booleans[item] = !inventory.booleans[item]"
@@ -70,7 +71,7 @@
             :data-selected="bool"
             role="button"
             tabindex="0"
-            :src="'/zora-pond-tracker/sprites/1.1.6/gem-' + item + '.png'"
+            :src="'/zora-pond-tracker/sprites/' + version + '/gem-' + item + '.png'"
             @click="inventory.filters.gems[item] = !inventory.filters.gems[item]"
             @keydown.prevent.space="inventory.filters.gems[item] = !inventory.filters.gems[item]"
             @keyup.prevent.enter="inventory.filters.gems[item] = !inventory.filters.gems[item]"
@@ -84,6 +85,7 @@
         :gemB="gemCombo.gemB"
         :prize="gemCombo.prize"
         :amount="gemCombo.amount"
+        :version="version"
       />
     </section>
 

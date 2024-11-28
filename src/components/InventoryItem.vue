@@ -6,7 +6,7 @@
         class="pointer"
         role="button"
         tabindex="0"
-        :src="src || '/zora-pond-tracker/sprites/1.1.6/' + alt.toLowerCase() + modelValue + '.png'"
+        :src="src || '/zora-pond-tracker/sprites/' + version + '/' + alt.toLowerCase() + modelValue + '.png'"
         @click="emit(modelValue + 1)"
         @keydown.prevent.space="emit(modelValue + 1)"
         @keyup.enter="emit(modelValue + 1)"
@@ -49,6 +49,10 @@ export default {
     max: {
       type: Number,
       default: 999
+    },
+    version: {
+      type: String,
+      required: true
     }
   },
   emits: ['update:modelValue'],
