@@ -210,241 +210,286 @@ export default {
   },
   computed: {
     prizePool: function () {
+      const redRed = {
+        gemA: 'red',
+        gemB: 'red',
+        prize: 'heart'
+      };
+      const blackBlack = {
+        gemA: 'black',
+        gemB: 'black',
+        prize: this.swordPrize
+      };
+      const blueBlue = {
+        gemA: 'blue',
+        gemB: 'blue',
+        prize: this.inventoryPrize
+      };
+      const blackYellow = {
+        gemA: 'black',
+        gemB: 'yellow',
+        prize: 'pendant-of-cures'
+      };
+      const blackWhite = {
+        gemA: 'black',
+        gemB: 'white',
+        prize: 'pendant-of-revival'
+      };
+      const blackPurple = {
+        gemA: 'black',
+        gemB: 'purple',
+        prize: 'pendant-of-direction'
+      };
+      const blackCyan = {
+        gemA: 'black',
+        gemB: 'cyan',
+        prize: 'pendant-of-protection'
+      };
+      const redBlue = {
+        gemA: 'red',
+        gemB: 'blue',
+        prize: 'cape'
+      };
+      const blackGreen = {
+        gemA: 'black',
+        gemB: 'green',
+        prize: 'pendant-of-wealth'
+      };
+      const whiteBlue = {
+        gemA: 'white',
+        gemB: 'blue',
+        prize: this.shieldPrize
+      };
+      const whiteRed = {
+        gemA: 'white',
+        gemB: 'red',
+        prize: this.glovePrize
+      };
+      const greenBlue = {
+        gemA: 'green',
+        gemB: 'blue',
+        prize: this.tunicPrize
+      };
+      const purpleGreen = {
+        gemA: 'purple',
+        gemB: 'green',
+        prize: 'potion-pink'
+      };
+      const cyanBlue = {
+        gemA: 'cyan',
+        gemB: 'blue',
+        prize: 'bomb-bag'
+      };
+      const greenRed = {
+        gemA: 'green',
+        gemB: 'red',
+        prize: 'gem-bag'
+      };
+      const purpleRed = {
+        gemA: 'purple',
+        gemB: 'red',
+        prize: 'rod-of-hearts'
+      };
+      const greenGreen = {
+        gemA: 'green',
+        gemB: 'green',
+        prize: 'rod-of-rupees'
+      };
+      const greenWhite = {
+        gemA: 'green',
+        gemB: 'white',
+        prize: 'ring-of-rupees'
+      };
+      const yellowBlue = {
+        gemA: 'yellow',
+        gemB: 'blue',
+        prize: 'lamp'
+      };
+      const pinkBlue = {
+        gemA: 'pink',
+        gemB: 'blue',
+        prize: 'potion-blue'
+      };
+      const whiteWhite = {
+        gemA: 'white',
+        gemB: 'white',
+        prize: this.bowPrize
+      };
+      const cyanRed = {
+        gemA: 'cyan',
+        gemB: 'red',
+        prize: 'quiver'
+      };
+      const purpleWhite = {
+        gemA: 'purple',
+        gemB: 'white',
+        prize: 'ring-of-hearts'
+      };
+      const yellowWhite = {
+        gemA: 'yellow',
+        gemB: 'white',
+        prize: 'ring-of-arrows'
+      };
+      const cyanWhite = {
+        gemA: 'cyan',
+        gemB: 'white',
+        prize: 'ring-of-bombs'
+      };
+      const cyanGreen = {
+        gemA: 'cyan',
+        gemB: 'green',
+        prize: 'rod-of-bombs'
+      };
+      const pinkRed = {
+        gemA: 'pink',
+        gemB: 'red',
+        prize: 'potion-red'
+      };
+      const purplePurple = {
+        gemA: 'purple',
+        gemB: 'purple',
+        prize: 'fairy-orb'
+      };
+      const pinkWhite = {
+        gemA: 'pink',
+        gemB: 'white',
+        prize: 'potion-white'
+      };
+      const cyanCyan = {
+        gemA: 'cyan',
+        gemB: 'cyan',
+        prize: 'ice-orb',
+        amount: 5
+      };
+      const yellowYellow = {
+        gemA: 'yellow',
+        gemB: 'yellow',
+        prize: 'fire-orb',
+        amount: 4
+      };
+      const blackRed = {
+        gemA: 'black',
+        gemB: 'red',
+        prize: 'pendant-of-health'
+      };
+      const blackBlue = {
+        gemA: 'black',
+        gemB: 'blue',
+        prize: 'pendant-of-secrets'
+      };
+      const blackPink = {
+        gemA: 'black',
+        gemB: 'pink',
+        prize: 'pendant-of-magic'
+      };
+      const purpleBlue = {
+        gemA: 'purple',
+        gemB: 'blue',
+        prize: 'rod-of-ice'
+      };
+      const yellowGreen = {
+        gemA: 'yellow',
+        gemB: 'green',
+        prize: 'rod-of-stone'
+      };
+      const yellowRed = {
+        gemA: 'yellow',
+        gemB: 'red',
+        prize: 'rod-of-fire'
+      };
+      const purpleCyan = {
+        gemA: 'purple',
+        gemB: 'cyan',
+        prize: 'bomb',
+        amount: 10
+      };
+      const pinkGreen = {
+        gemA: 'pink',
+        gemB: 'green',
+        prize: 'potion-green'
+      };
+      const yellowCyan = {
+        gemA: 'yellow',
+        gemB: 'cyan',
+        prize: 'magic',
+        amount: 2
+      };
+      const pinkCyan = {
+        gemA: 'pink',
+        gemB: 'cyan',
+        prize: 'food-burger',
+        amount: 2
+      };
+      const pinkYellow = {
+        gemA: 'pink',
+        gemB: 'yellow',
+        prize: 'can',
+        amount: 3
+      };
+      const pinkPurple = {
+        gemA: 'pink',
+        gemB: 'purple',
+        prize: 'food-muffin',
+        amount: 2
+      };
+      const pinkPink = {
+        gemA: 'pink',
+        gemB: 'pink',
+        prize: 'can',
+        amount: 2
+      };
+      const purpleYellow = {
+        gemA: 'purple',
+        gemB: 'yellow',
+        prize: 'arrows',
+        amount: 60
+      };
       return [
-        {
-          gemA: 'red',
-          gemB: 'red',
-          prize: 'heart'
-        },
-        {
-          gemA: 'black',
-          gemB: 'black',
-          prize: this.swordPrize
-        },
-        {
-          gemA: 'blue',
-          gemB: 'blue',
-          prize: this.inventoryPrize
-        },
-        {
-          gemA: 'black',
-          gemB: 'yellow',
-          prize: 'pendant-of-cures'
-        },
-        {
-          gemA: 'black',
-          gemB: 'white',
-          prize: 'pendant-of-revival'
-        },
-        {
-          gemA: 'black',
-          gemB: 'purple',
-          prize: 'pendant-of-direction'
-        },
-        {
-          gemA: 'black',
-          gemB: 'cyan',
-          prize: 'pendant-of-protection'
-        },
-        {
-          gemA: 'red',
-          gemB: 'blue',
-          prize: 'cape'
-        },
-        {
-          gemA: 'black',
-          gemB: 'green',
-          prize: 'pendant-of-wealth'
-        },
-        {
-          gemA: 'white',
-          gemB: 'blue',
-          prize: this.shieldPrize
-        },
-        {
-          gemA: 'white',
-          gemB: 'red',
-          prize: this.glovePrize
-        },
-        {
-          gemA: 'green',
-          gemB: 'blue',
-          prize: this.tunicPrize
-        },
-        {
-          gemA: 'purple',
-          gemB: 'green',
-          prize: 'potion-pink'
-        },
-        {
-          gemA: 'cyan',
-          gemB: 'blue',
-          prize: 'bomb-bag'
-        },
-        {
-          gemA: 'green',
-          gemB: 'red',
-          prize: 'gem-bag'
-        },
-        {
-          gemA: 'purple',
-          gemB: 'red',
-          prize: 'rod-of-hearts'
-        },
-        {
-          gemA: 'green',
-          gemB: 'green',
-          prize: 'rod-of-rupees'
-        },
-        {
-          gemA: 'green',
-          gemB: 'white',
-          prize: 'ring-of-rupees'
-        },
-        {
-          gemA: 'yellow',
-          gemB: 'blue',
-          prize: 'lamp'
-        },
-        {
-          gemA: 'pink',
-          gemB: 'blue',
-          prize: 'potion-blue'
-        },
-        {
-          gemA: 'white',
-          gemB: 'white',
-          prize: this.bowPrize
-        },
-        {
-          gemA: 'cyan',
-          gemB: 'red',
-          prize: 'quiver'
-        },
-        {
-          gemA: 'purple',
-          gemB: 'white',
-          prize: 'ring-of-hearts'
-        },
-        {
-          gemA: 'yellow',
-          gemB: 'white',
-          prize: 'ring-of-arrows'
-        },
-        {
-          gemA: 'cyan',
-          gemB: 'white',
-          prize: 'ring-of-bombs'
-        },
-        {
-          gemA: 'cyan',
-          gemB: 'green',
-          prize: 'rod-of-bombs'
-        },
-        {
-          gemA: 'pink',
-          gemB: 'red',
-          prize: 'potion-red'
-        },
-        {
-          gemA: 'purple',
-          gemB: 'purple',
-          prize: 'fairy-orb'
-        },
-        {
-          gemA: 'pink',
-          gemB: 'white',
-          prize: 'potion-white'
-        },
-        {
-          gemA: 'cyan',
-          gemB: 'cyan',
-          prize: 'ice-orb',
-          amount: 5
-        },
-        {
-          gemA: 'yellow',
-          gemB: 'yellow',
-          prize: 'fire-orb',
-          amount: 4
-        },
-        {
-          gemA: 'black',
-          gemB: 'red',
-          prize: 'pendant-of-health'
-        },
-        {
-          gemA: 'black',
-          gemB: 'blue',
-          prize: 'pendant-of-secrets'
-        },
-        {
-          gemA: 'black',
-          gemB: 'pink',
-          prize: 'pendant-of-magic'
-        },
-        {
-          gemA: 'purple',
-          gemB: 'blue',
-          prize: 'rod-of-ice'
-        },
-        {
-          gemA: 'yellow',
-          gemB: 'green',
-          prize: 'rod-of-stone'
-        },
-        {
-          gemA: 'yellow',
-          gemB: 'red',
-          prize: 'rod-of-fire'
-        },
-        {
-          gemA: 'purple',
-          gemB: 'cyan',
-          prize: 'bomb',
-          amount: 10
-        },
-        {
-          gemA: 'pink',
-          gemB: 'green',
-          prize: 'potion-green'
-        },
-        {
-          gemA: 'yellow',
-          gemB: 'cyan',
-          prize: 'magic',
-          amount: 2
-        },
-        {
-          gemA: 'pink',
-          gemB: 'cyan',
-          prize: 'food-burger',
-          amount: 2
-        },
-        {
-          gemA: 'pink',
-          gemB: 'yellow',
-          prize: 'can',
-          amount: 3
-        },
-        {
-          gemA: 'pink',
-          gemB: 'purple',
-          prize: 'food-muffin',
-          amount: 2
-        },
-        {
-          gemA: 'pink',
-          gemB: 'pink',
-          prize: 'can',
-          amount: 2
-        },
-        {
-          gemA: 'purple',
-          gemB: 'yellow',
-          prize: 'arrows',
-          amount: 60
-        }
+        redRed,
+        blackBlack,
+        blueBlue,
+        blackYellow,
+        blackWhite,
+        blackPurple,
+        blackCyan,
+        redBlue,
+        blackGreen,
+        whiteBlue,
+        whiteRed,
+        greenBlue,
+        purpleGreen,
+        cyanBlue,
+        greenRed,
+        purpleRed,
+        greenGreen,
+        greenWhite,
+        yellowBlue,
+        pinkBlue,
+        whiteWhite,
+        cyanRed,
+        purpleWhite,
+        yellowWhite,
+        cyanWhite,
+        cyanGreen,
+        pinkRed,
+        purplePurple,
+        pinkWhite,
+        cyanCyan,
+        yellowYellow,
+        blackRed,
+        blackBlue,
+        blackPink,
+        purpleBlue,
+        yellowGreen,
+        yellowRed,
+        purpleCyan,
+        pinkGreen,
+        yellowCyan,
+        pinkCyan,
+        pinkYellow,
+        pinkPurple,
+        pinkPink,
+        purpleYellow
       ];
     },
     bowPrize: function () {
