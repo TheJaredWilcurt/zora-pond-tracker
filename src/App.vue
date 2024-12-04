@@ -35,7 +35,7 @@
 
       <div>
         <span
-          v-for="(bool, item) in inventory.booleans"
+          v-for="(bool, item) in inventoryBooleans"
           class="sub-item-wrapper"
           :key="'booleans-' + item"
         >
@@ -169,7 +169,9 @@ export default {
         booleans: {
           'quiver': false,
           'bomb-bag': false,
+          'food-bag': false,
           'gem-bag': false,
+          'pendant-bag': false,
           'cape': false,
           'lamp': false,
           'pendant-of-cures': false,
@@ -209,6 +211,20 @@ export default {
     titleCase
   },
   computed: {
+    inventoryBooleans: function () {
+      const booleans = {
+        ...this.inventory.booleans
+      };
+      if (this.version === '1.1.6') {
+        delete booleans['food-bag'];
+        delete booleans['pendant-bag'];
+      }
+      if (this.version === '1.2.0') {
+        delete booleans['cape'];
+        delete booleans['lamp'];
+      }
+      return booleans;
+    },
     prizePool: function () {
       const redRed = {
         gemA: 'red',
@@ -225,6 +241,9 @@ export default {
         gemB: 'blue',
         prize: this.inventoryPrize
       };
+      if (this.version === '1.2.0') {
+        blueBlue.prize = this.shieldPrize;
+      }
       const blackYellow = {
         gemA: 'black',
         gemB: 'yellow',
@@ -250,6 +269,9 @@ export default {
         gemB: 'blue',
         prize: 'cape'
       };
+      if (this.version === '1.2.0') {
+        redBlue.prize = this.tunicPrize;
+      }
       const blackGreen = {
         gemA: 'black',
         gemB: 'green',
@@ -260,6 +282,9 @@ export default {
         gemB: 'blue',
         prize: this.shieldPrize
       };
+      if (this.version === '1.2.0') {
+        whiteBlue.prize = 'food-bag';
+      }
       const whiteRed = {
         gemA: 'white',
         gemB: 'red',
@@ -270,6 +295,9 @@ export default {
         gemB: 'blue',
         prize: this.tunicPrize
       };
+      if (this.version === '1.2.0') {
+        greenBlue.prize = 'pendant-bag';
+      }
       const purpleGreen = {
         gemA: 'purple',
         gemB: 'green',
@@ -305,6 +333,9 @@ export default {
         gemB: 'blue',
         prize: 'lamp'
       };
+      if (this.version === '1.2.0') {
+        yellowBlue.prize = this.inventoryPrize;
+      }
       const pinkBlue = {
         gemA: 'pink',
         gemB: 'blue',
