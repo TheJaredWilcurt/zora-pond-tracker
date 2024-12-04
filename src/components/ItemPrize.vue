@@ -83,6 +83,7 @@ export default {
       if (!this.valid) {
         return;
       }
+      const prize = this.prize;
       this.inventory.gems[this.gemA]--;
       this.inventory.gems[this.gemB]--;
       const itemEndsInNumber = '0123456789'.split('').includes(prize[prize.length - 1]);

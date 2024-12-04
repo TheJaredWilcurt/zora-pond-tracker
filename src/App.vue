@@ -89,19 +89,37 @@
       />
     </section>
 
-    <h3>Dwarven Maze</h3>
+    <h3>Guides</h3>
     <section>
-      <a
-        href="/zora-pond-tracker/dwarven-maze.jpg"
-        target="_blank"
-        style="display: inline-block;"
-      >
-        <img
-          alt="Dwarven Maze Map"
-          class="maze pixel-corners"
-          :src="'/zora-pond-tracker/dwarven-maze.jpg'"
-        />
-      </a>
+      <div class="guide">
+        <h4>Dwarven Maze</h4>
+        <a
+          class="guide-link"
+          href="/zora-pond-tracker/dwarven-maze.jpg"
+          target="_blank"
+        >
+          <img
+            alt="Dwarven Maze Map"
+            class="guide-image pixel-corners"
+            :src="'/zora-pond-tracker/dwarven-maze.jpg'"
+          />
+        </a>
+      </div>
+
+      <div class="guide">
+        <h4>Kinstone Rewards</h4>
+        <a
+          class="guide-link"
+          :href="'/zora-pond-tracker/kinstone-guide-' + version + '.png'"
+          target="_blank"
+        >
+          <img
+            alt="Dwarven Maze Map"
+            class="guide-image pixel-corners"
+            :src="'/zora-pond-tracker/kinstone-guide-' + version + '.png'"
+          />
+        </a>
+      </div>
     </section>
     <footer></footer>
   </div>

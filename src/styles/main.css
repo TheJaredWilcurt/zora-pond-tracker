@@ -43,6 +43,10 @@ h1 {
   text-align: center;
   text-shadow: 4px 4px 4px #0006;
 }
+h4 {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
 @media (width < 455px) {
   h1 {
     font-size: 50px;
@@ -144,6 +148,10 @@ input::-webkit-inner-spin-button {
   height: 16px;
   padding: 8px 10px;
 }
+.sub-item:focus {
+  background: #889C;
+  outline: none;
+}
 .sub-item[data-selected="false"] {
   opacity: 0.5;
 }
@@ -188,7 +196,15 @@ input::-webkit-inner-spin-button {
   height: 24px;
   margin: 7px 4px 1px 4px;
 }
-.maze {
+.guide {
+  display: inline-block;
+  margin-right: 16px;
+  vertical-align: top;
+}
+.guide-link {
+  display: inline-block;
+}
+.guide-image {
   height: 100px;
   border: 7px solid #00000094;
   image-rendering: optimizequality;
