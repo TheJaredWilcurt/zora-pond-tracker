@@ -269,9 +269,6 @@ export default {
         gemB: 'blue',
         prize: 'cape'
       };
-      if (this.version === '1.2.0') {
-        redBlue.prize = this.tunicPrize;
-      }
       const blackGreen = {
         gemA: 'black',
         gemB: 'green',
@@ -282,9 +279,6 @@ export default {
         gemB: 'blue',
         prize: this.shieldPrize
       };
-      if (this.version === '1.2.0') {
-        whiteBlue.prize = 'food-bag';
-      }
       const whiteRed = {
         gemA: 'white',
         gemB: 'red',
@@ -295,9 +289,6 @@ export default {
         gemB: 'blue',
         prize: this.tunicPrize
       };
-      if (this.version === '1.2.0') {
-        greenBlue.prize = 'pendant-bag';
-      }
       const purpleGreen = {
         gemA: 'purple',
         gemB: 'green',
@@ -333,9 +324,6 @@ export default {
         gemB: 'blue',
         prize: 'lamp'
       };
-      if (this.version === '1.2.0') {
-        yellowBlue.prize = this.inventoryPrize;
-      }
       const pinkBlue = {
         gemA: 'pink',
         gemB: 'blue',
@@ -475,53 +463,167 @@ export default {
         prize: 'arrows',
         amount: 60
       };
-      return [
-        redRed,
-        blackBlack,
-        blueBlue,
-        blackYellow,
-        blackWhite,
-        blackPurple,
-        blackCyan,
-        redBlue,
-        blackGreen,
-        whiteBlue,
-        whiteRed,
-        greenBlue,
-        purpleGreen,
-        cyanBlue,
-        greenRed,
-        purpleRed,
-        greenGreen,
-        greenWhite,
-        yellowBlue,
-        pinkBlue,
-        whiteWhite,
-        cyanRed,
-        purpleWhite,
-        yellowWhite,
-        cyanWhite,
-        cyanGreen,
-        pinkRed,
-        purplePurple,
-        pinkWhite,
-        cyanCyan,
-        yellowYellow,
-        blackRed,
-        blackBlue,
-        blackPink,
-        purpleBlue,
-        yellowGreen,
-        yellowRed,
-        purpleCyan,
-        pinkGreen,
-        yellowCyan,
-        pinkCyan,
-        pinkYellow,
-        pinkPurple,
-        pinkPink,
-        purpleYellow
+
+      let arrows = purpleYellow;
+      let bomb = purpleCyan;
+      let bombBag = cyanBlue;
+      let bow = whiteWhite;
+      let can3 = pinkYellow;
+      let can2 = pinkPink;
+      let cape= redBlue;
+      let fairyOrb = purplePurple;
+      let foodBag = whiteBlue;
+      let foodBurger = pinkCyan;
+      let foodMuffin = pinkPurple;
+      let fireOrb = yellowYellow;
+      let gemBag = greenRed;
+      let glove = whiteRed;
+      let heart = redRed;
+      let iceOrb = cyanCyan;
+      let inventory = blueBlue;
+      let lamp = yellowBlue;
+      let magic = yellowCyan;
+      let pendantBag = greenBlue;
+      let pendantOfCures = blackYellow;
+      let pendantOfDirection = blackPurple;
+      let pendantOfHealth = blackRed;
+      let pendantOfMagic = blackPink;
+      let pendantOfProtection = blackCyan;
+      let pendantOfRevival = blackWhite;
+      let pendantOfSecrets = blackBlue;
+      let pendantOfWealth = blackGreen;
+      let potionBlue = pinkBlue;
+      let potionGreen = pinkGreen;
+      let potionPink = purpleGreen;
+      let potionRed = pinkRed;
+      let potionWhite = pinkWhite;
+      let quiver = cyanRed;
+      let ringOfArrows = yellowWhite;
+      let ringOfBombs = cyanWhite;
+      let ringOfHearts = purpleWhite;
+      let ringOfRupees = greenWhite;
+      let rodOfBombs = cyanGreen;
+      let rodOfFire = yellowRed;
+      let rodOfHearts = purpleRed;
+      let rodOfIce = purpleBlue;
+      let rodOfRupees = greenGreen;
+      let rodOfStone = yellowGreen;
+      let shield = whiteBlue;
+      let sword = blackBlack;
+      let tunic = greenBlue;
+
+
+      if (this.version === '1.2.0') {
+        whiteBlue.prize = 'food-bag';
+        yellowBlue.prize = this.inventoryPrize;
+        greenBlue.prize = 'pendant-bag';
+        blueBlue.prize = this.shieldPrize
+        redBlue.prize = this.tunicPrize;
+
+        inventory = yellowBlue;
+        shield = blueBlue;
+        tunic = redBlue;
+      }
+
+      const sorted_1_1_6 = [
+        heart,
+        sword,
+        inventory,
+        pendantOfCures,
+        pendantOfRevival,
+        pendantOfDirection,
+        pendantOfProtection,
+        cape,
+        pendantOfWealth,
+        shield,
+        glove,
+        tunic,
+        potionPink,
+        bombBag,
+        gemBag,
+        rodOfHearts,
+        rodOfRupees,
+        ringOfRupees,
+        lamp,
+        potionBlue,
+        bow,
+        quiver,
+        ringOfHearts,
+        ringOfArrows,
+        ringOfBombs,
+        rodOfBombs,
+        potionRed,
+        fairyOrb,
+        potionWhite,
+        iceOrb,
+        fireOrb,
+        pendantOfHealth,
+        pendantOfSecrets,
+        pendantOfMagic,
+        rodOfIce,
+        rodOfStone,
+        rodOfFire,
+        bomb,
+        potionGreen,
+        magic,
+        foodBurger,
+        can3,
+        foodMuffin,
+        can2,
+        arrows
       ];
+      const sorted_1_2_0 = [
+        heart,
+        sword,
+        inventory,
+        pendantOfCures,
+        pendantOfRevival,
+        pendantOfDirection,
+        pendantOfProtection,
+        pendantOfWealth,
+        shield,
+        glove,
+        tunic,
+        potionPink,
+        bombBag,
+        gemBag,
+        foodBag,
+        pendantBag,
+        rodOfHearts,
+        rodOfRupees,
+        ringOfRupees,
+        potionBlue,
+        bow,
+        quiver,
+        ringOfHearts,
+        ringOfArrows,
+        ringOfBombs,
+        rodOfBombs,
+        potionRed,
+        fairyOrb,
+        potionWhite,
+        iceOrb,
+        fireOrb,
+        pendantOfHealth,
+        pendantOfSecrets,
+        pendantOfMagic,
+        rodOfIce,
+        rodOfStone,
+        rodOfFire,
+        bomb,
+        potionGreen,
+        magic,
+        foodBurger,
+        can3,
+        foodMuffin,
+        can2,
+        arrows
+      ];
+
+      if (this.version === '1.2.0') {
+        return sorted_1_2_0;
+      }
+      return sorted_1_1_6;
     },
     bowPrize: function () {
       const bowLevel = this.inventory.bow;
