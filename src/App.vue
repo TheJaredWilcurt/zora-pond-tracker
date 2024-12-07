@@ -26,7 +26,13 @@
         :version="version"
         :key="gemColor"
       />
-      <InventoryItem v-model="inventory.bag"    alt="Bag"    :min="1" :max="3" :version="version" />
+      <InventoryItem
+        v-model="inventory.bag"
+        alt="Bag"
+        :min="version === '1.2.0' ? 0 : 1"
+        :max="version === '1.2.0' ? 5 : 3"
+        :version="version"
+      />
       <InventoryItem v-model="inventory.tunic"  alt="Tunic"  :min="1" :max="4" :version="version" />
       <InventoryItem v-model="inventory.sword"  alt="Sword"           :max="6" :version="version" />
       <InventoryItem v-model="inventory.shield" alt="Shield"          :max="4" :version="version" />
@@ -648,7 +654,11 @@ export default {
     },
     inventoryPrize: function () {
       const inventoryLevel = this.inventory.bag;
-      if (inventoryLevel === 3) {
+      let max = 3;
+      if (this.version === '1.2.0') {
+        max = 5;
+      }
+      if (inventoryLevel === max) {
         return 'rupee';
       }
       return 'bag' + (inventoryLevel + 1);
@@ -673,6 +683,21 @@ export default {
         return 'rupee';
       }
       return 'tunic' + (tunicLevel + 1);
+    }
+  },
+  watch: {
+    version: function (value) {
+      if (value === '1.1.6') {
+        if (this.inventory.bag === 0) {
+          this.inventory.bag = 1;
+        }
+        if (this.inventory.bag > 3) {
+          this.inventory.bag = 3;
+        }
+      }
+      if (value === '1.2.0' && this.inventory.bag === 1) {
+        this.inventory.bag = 0;
+      }
     }
   }
 };
