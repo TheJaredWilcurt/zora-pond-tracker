@@ -247,9 +247,6 @@ export default {
         gemB: 'blue',
         prize: this.inventoryPrize
       };
-      if (this.version === '1.2.0') {
-        blueBlue.prize = this.shieldPrize;
-      }
       const blackYellow = {
         gemA: 'black',
         gemB: 'yellow',
@@ -478,7 +475,7 @@ export default {
       let can2 = pinkPink;
       let cape= redBlue;
       let fairyOrb = purplePurple;
-      let foodBag = whiteBlue;
+      let foodBag = cyanRed;
       let foodBurger = pinkCyan;
       let foodMuffin = pinkPurple;
       let fireOrb = yellowYellow;
@@ -518,16 +515,25 @@ export default {
       let sword = blackBlack;
       let tunic = greenBlue;
 
-
       if (this.version === '1.2.0') {
-        whiteBlue.prize = 'food-bag';
-        yellowBlue.prize = this.inventoryPrize;
+        cyanRed.prize = 'food-bag';
         greenBlue.prize = 'pendant-bag';
-        blueBlue.prize = this.shieldPrize
+        blueBlue.prize = this.shieldPrize;
+        purpleRed.prize = 'heart';
         redBlue.prize = this.tunicPrize;
+        redRed.prize = 'rod-of-hearts';
+        whiteBlue.prize = this.glovePrize;
+        whiteRed.prize = this.bowPrize;
+        whiteWhite.prize = this.inventoryPrize;
+        yellowBlue.prize = 'quiver';
 
-        inventory = yellowBlue;
+        bow = whiteRed;
+        glove = whiteBlue;
+        heart = purpleRed;
+        inventory = whiteWhite;
+        quiver = yellowBlue;
         shield = blueBlue;
+        rodOfHearts = redRed;
         tunic = redBlue;
       }
 
