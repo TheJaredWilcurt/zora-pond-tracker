@@ -44,17 +44,17 @@
           v-for="(bool, item) in inventoryBooleans"
           class="sub-item-wrapper"
           :key="'booleans-' + item"
+          role="button"
+          tabindex="0"
+          @click="inventory.booleans[item] = !inventory.booleans[item]"
+          @keydown.prevent.space="inventory.booleans[item] = !inventory.booleans[item]"
+          @keyup.prevent.enter="inventory.booleans[item] = !inventory.booleans[item]"
         >
           <img
             :alt="titleCase(item)"
             class="sub-item pixel-corners pointer"
             :data-selected="bool"
-            role="button"
-            tabindex="0"
             :src="'/zora-pond-tracker/sprites/' + version + '/' + item + '.png'"
-            @click="inventory.booleans[item] = !inventory.booleans[item]"
-            @keydown.prevent.space="inventory.booleans[item] = !inventory.booleans[item]"
-            @keyup.prevent.enter="inventory.booleans[item] = !inventory.booleans[item]"
           />
         </span>
       </div>
@@ -70,17 +70,17 @@
           v-for="(bool, item) in inventory.filters.gems"
           class="sub-item-wrapper"
           :key="'sub-item-' + item"
+          role="button"
+          tabindex="0"
+          @click="inventory.filters.gems[item] = !inventory.filters.gems[item]"
+          @keydown.prevent.space="inventory.filters.gems[item] = !inventory.filters.gems[item]"
+          @keyup.prevent.enter="inventory.filters.gems[item] = !inventory.filters.gems[item]"
         >
           <img
             :alt="titleCase(item + '-gem')"
             class="sub-item small pixel-corners pointer"
             :data-selected="bool"
-            role="button"
-            tabindex="0"
             :src="'/zora-pond-tracker/sprites/' + version + '/gem-' + item + '.png'"
-            @click="inventory.filters.gems[item] = !inventory.filters.gems[item]"
-            @keydown.prevent.space="inventory.filters.gems[item] = !inventory.filters.gems[item]"
-            @keyup.prevent.enter="inventory.filters.gems[item] = !inventory.filters.gems[item]"
           />
         </span>
       </div>

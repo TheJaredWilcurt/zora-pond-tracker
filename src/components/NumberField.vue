@@ -3,7 +3,13 @@
     <button
       :disabled="!(modelValue < max)"
       @click="incrementAmount"
-    >▲</button>
+    >
+      <img
+        alt="up arrow"
+        class="number-arrow"
+        :src="'/zora-pond-tracker/sprites/up.png'"
+      />
+    </button>
     <input
       :value="modelValue"
       :min="min"
@@ -14,7 +20,13 @@
     <button
       :disabled="!(modelValue > min)"
       @click="decrementAmount"
-    >▼</button>
+    >
+      <img
+        alt="down arrow"
+        class="number-arrow"
+        :src="'/zora-pond-tracker/sprites/down.png'"
+      />
+    </button>
   </span>
 </template>
 

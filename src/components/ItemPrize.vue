@@ -120,8 +120,8 @@ export default {
         (sameGem && gem1Amount > 1) ||
         (!sameGem && gem1Amount > 0 && gem2Amount > 0)
       );
-      const gem1FilteredOut = !this.inventory.filters.gems[this.gemA];
-      const gem2FilteredOut = !this.inventory.filters.gems[this.gemB];
+      const gem1FilteredIn = this.inventory.filters.gems[this.gemA];
+      const gem2FilteredIn = this.inventory.filters.gems[this.gemB];
 
       const hideRupees = this.isRupee && !this.inventory.filters.showRupees;
       const skipAntidote = (
@@ -130,14 +130,14 @@ export default {
       );
       const skipUnobtainable = unobtainable && !this.inventory.filters.showUnavailable;
       const skipObtainable = obtainable && !this.inventory.filters.showAvailable;
-      const gemsFilteredOut = gem1FilteredOut || gem2FilteredOut;
+      const gemsFilteredIn = gem1FilteredIn || gem2FilteredIn;
 
       if (
         hideRupees ||
         skipAntidote ||
         skipUnobtainable ||
         skipObtainable ||
-        gemsFilteredOut
+        !gemsFilteredIn
       ) {
         return false;
       }
