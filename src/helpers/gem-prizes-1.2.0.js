@@ -105,7 +105,7 @@ export const gemPrizes_1_2_0 = function (dynamicPrizes) {
   const lamp = {
     gemA: 'blue',
     gemB: 'orange',
-    prize: 'lamp'
+    prize: dynamicPrizes.lampPrize
   };
   const magic1 = {
     gemA: 'orange',

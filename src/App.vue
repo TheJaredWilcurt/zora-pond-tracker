@@ -33,11 +33,14 @@
         :max="version === '1.2.0' ? 5 : 3"
         :version="version"
       />
-      <InventoryItem v-model="inventory.tunic"  alt="Tunic"  :min="1" :max="4" :version="version" />
-      <InventoryItem v-model="inventory.sword"  alt="Sword"           :max="6" :version="version" />
-      <InventoryItem v-model="inventory.shield" alt="Shield"          :max="4" :version="version" />
-      <InventoryItem v-model="inventory.gloves" alt="Gloves"          :max="3" :version="version" />
-      <InventoryItem v-model="inventory.bow"    alt="Bow"             :max="2" :version="version" />
+      <InventoryItem   v-model="inventory.tunic"  alt="Tunic"  :min="1" :max="4" :version="version" />
+      <InventoryItem   v-model="inventory.sword"  alt="Sword"           :max="6" :version="version" />
+      <InventoryItem   v-model="inventory.shield" alt="Shield"          :max="4" :version="version" />
+      <InventoryItem   v-model="inventory.gloves" alt="Gloves"          :max="3" :version="version" />
+      <InventoryItem   v-model="inventory.bow"    alt="Bow"             :max="2" :version="version" />
+      <template v-if="version === '1.2.0'">
+        <InventoryItem v-model="inventory.lamp"   alt="Lamp"            :max="2" :version="version" />
+      </template>
 
       <div>
         <span
@@ -175,6 +178,7 @@ export default {
         shield: 0,
         sword: 1,
         tunic: 1,
+        lamp: 1,
         booleans: {
           'bomb-bag': false,
           'food-bag': false,
@@ -233,6 +237,9 @@ export default {
         delete booleans.hookshot;
         delete booleans['pendant-bag'];
       }
+      if (this.version === '1.2.0') {
+        delete booleans.lamp;
+      }
       return booleans;
     },
     inventoryGems: function () {
@@ -257,6 +264,7 @@ export default {
       const dynamicPrizes = {
         bowPrize: this.bowPrize,
         glovePrize: this.glovePrize,
+        lampPrize: this.lampPrize,
         inventoryPrize: this.inventoryPrize,
         shieldPrize: this.shieldPrize,
         swordPrize: this.swordPrize,
@@ -285,9 +293,16 @@ export default {
     glovePrize: function () {
       const glovesLevel = this.inventory.gloves;
       if (glovesLevel === 3) {
-        return 'rupee'
+        return 'rupee';
       }
       return 'gloves' + (glovesLevel + 1);
+    },
+    lampPrize: function () {
+      const lampLevel = this.inventory.lamp;
+      if (lampLevel === 2) {
+        return 'rupee';
+      }
+      return 'lamp' + (lampLevel + 1);
     },
     inventoryPrize: function () {
       const inventoryLevel = this.inventory.bag;
@@ -312,7 +327,7 @@ export default {
       if (swordLevel === 6) {
         return 'rupee';
       }
-      return 'sword' + (swordLevel + 1)
+      return 'sword' + (swordLevel + 1);
     },
     tunicPrize: function () {
       const tunicLevel = this.inventory.tunic;
