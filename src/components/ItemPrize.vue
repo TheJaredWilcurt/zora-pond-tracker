@@ -105,6 +105,7 @@ export default {
     isRupee: function () {
       return (
         this.prize === 'rupee' ||
+        this.prize === 'rupees' ||
         this.inventory.booleans[this.prize]
       );
     },
@@ -126,7 +127,7 @@ export default {
       const hideRupees = this.isRupee && !this.inventory.filters.showRupees;
       const skipAntidote = (
         this.inventory.booleans['pendant-of-cures'] &&
-        this.prize === 'potion-pink'
+        ['potion-pink', 'potion-purple'].includes(this.prize)
       );
       const skipUnobtainable = unobtainable && !this.inventory.filters.showUnavailable;
       const skipObtainable = obtainable && !this.inventory.filters.showAvailable;
