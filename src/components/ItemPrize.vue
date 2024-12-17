@@ -86,17 +86,30 @@ export default {
       const prize = this.prize;
       this.inventory.gems[this.gemA]--;
       this.inventory.gems[this.gemB]--;
+      // wait until after gem subtraction to return if rupee
+      if (this.isRupee) {
+        return;
+      }
       const itemEndsInNumber = '0123456789'.split('').includes(prize[prize.length - 1]);
       let itemWithoutNumber = prize;
       if (itemEndsInNumber) {
         itemWithoutNumber = prize.substring(0, prize.length - 1);
       }
-      if (this.isRupee) {
-        return;
-      } else if (this.inventory.booleans.hasOwnProperty(itemWithoutNumber)) {
-        this.inventory.booleans[itemWithoutNumber] = true;
-      } else if (this.inventory.hasOwnProperty(itemWithoutNumber)) {
-        this.inventory[itemWithoutNumber]++;
+      const prizeOnRoot = this.inventory.hasOwnProperty(itemWithoutNumber);
+      const prizeOnBooleans = this.inventory.booleans.hasOwnProperty(itemWithoutNumber);
+      // This is because "lamp" is different between versions
+      if (this.version === '1.1.6') {
+        if (prizeOnBooleans) {
+          this.inventory.booleans[itemWithoutNumber] = true;
+        } else if (prizeOnRoot) {
+          this.inventory[itemWithoutNumber]++;
+        }
+      } else {
+        if (prizeOnRoot) {
+          this.inventory[itemWithoutNumber]++;
+        } else if (prizeOnBooleans) {
+          this.inventory.booleans[itemWithoutNumber] = true;
+        }
       }
     },
     titleCase
