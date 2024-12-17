@@ -46,7 +46,8 @@ export const gemPrizes_1_2_0 = function (dynamicPrizes) {
   const fairyOrb = {
     gemA: 'purple',
     gemB: 'purple',
-    prize: 'fairy-orb'
+    prize: 'fairy-orb',
+    amount: 2
   };
   const foodBag = {
     gemA: 'purple',
