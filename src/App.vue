@@ -2,7 +2,7 @@
   <div>
     <header>
       <h1>
-        Zora Pond<br>
+        Zora Pond<br />
         Item Tracker
       </h1>
       <h2>
@@ -111,6 +111,7 @@
         title="Kinstone Rewards"
       />
       <GuideLink
+        v-if="version === '1.2.0'"
         alt="Stats chart"
         image="/zora-pond-tracker/stats-chart.png"
         link="https://docs.google.com/spreadsheets/u/0/d/12kUPtlggTfWe7jjaKoyvBQY_idnZ2PL8xKgC8gRePV4/htmlview"
