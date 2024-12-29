@@ -69,6 +69,7 @@
         <CheckBox v-model="inventory.filters.showAvailable">Show Available</CheckBox>
         <CheckBox v-model="inventory.filters.showUnavailable">Show Unavailable</CheckBox>
         <CheckBox v-model="inventory.filters.showRupees">Show Rupees</CheckBox>
+        <CheckBox v-model="inventory.filters.showWorth">Show Worth</CheckBox>
         <span
           v-for="(bool, item) in filterGems"
           class="sub-item-wrapper"
@@ -149,6 +150,7 @@ export default {
           showAvailable: true,
           showUnavailable: false,
           showRupees: true,
+          showWorth: false,
           gems: {
             pink: true,
             orange: true,

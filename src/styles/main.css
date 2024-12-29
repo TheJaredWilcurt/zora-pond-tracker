@@ -184,7 +184,7 @@ input::-webkit-inner-spin-button {
   flex-direction: column;
   background: #445;
   margin: 10px;
-  padding: 10px;
+  padding: 0px;
 }
 .prize span {
   display: flex;
@@ -192,6 +192,7 @@ input::-webkit-inner-spin-button {
 }
 .prize-image {
   position: relative;
+  padding: 10px 10px 0px 10px;
 }
 .prize-amount {
   position: absolute;
@@ -206,9 +207,26 @@ input::-webkit-inner-spin-button {
 .prize-dim {
   background: #4458;
 }
+.offerings {
+  padding: 0px 10px 10px 10px;
+}
 .offerings img {
   height: 24px;
   margin: 7px 4px 1px 4px;
+}
+.ruppee-worth {
+  align-items: center;
+  background: #1D1E3C;
+  margin-top: -4px;
+  padding: 3px 10px 4px 10px;
+  font-size: 17px;
+}
+.prize-dim .ruppee-worth {
+  background: #1D1E3C96;
+}
+.ruppee-worth img {
+  max-height: 14px;
+  margin-right: 4px;
 }
 .guide {
   display: inline-block;

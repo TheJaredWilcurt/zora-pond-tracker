@@ -5,7 +5,10 @@
       class="prize pixel-corners"
       :class="{ 'prize-dim': !valid }"
     >
-      <span v-if="isRupee">
+      <span
+        v-if="isRupee"
+        class="prize-image"
+      >
         <img
           alt="Rupees"
           :class="{
@@ -61,6 +64,17 @@
           :src="'/zora-pond-tracker/sprites/' + version + '/gem-' + gemB + '.png'"
         />
       </span>
+      <span
+        v-if="inventory.filters.showWorth"
+        class="ruppee-worth"
+        title="Equivalent value in ruppees (according to Zora)"
+      >
+        <img
+          alt="Rupee"
+          :src="'/zora-pond-tracker/sprites/' + version + '/rupee.gif'"
+        />
+        {{ rupeeWorth.min }} - {{ rupeeWorth.max }}
+      </span>
     </div>
   </div>
 </template>
@@ -112,9 +126,46 @@ export default {
         }
       }
     },
+    getGemValue: function (color) {
+      const gemsOrderedByValue = {
+        '1.1.6': [
+          'pink',
+          'purple',
+          'yellow',
+          'cyan',
+          'green',
+          'white',
+          'red',
+          'blue',
+          'black'
+        ],
+        '1.2.0': [
+          'pink',
+          'orange',
+          'cyan',
+          'yellow',
+          'purple',
+          'green',
+          'white',
+          'red',
+          'blue',
+          'black'
+        ]
+      };
+      return gemsOrderedByValue[this.version].indexOf(color) + 1;
+    },
     titleCase
   },
   computed: {
+    rupeeWorth: function () {
+      const gemAValue = this.getGemValue(this.gemA);
+      const gemBValue = this.getGemValue(this.gemB);
+      const gemsValue = gemAValue * gemBValue;
+      const minValue = Math.max(gemsValue, 25);
+      const min = Math.round(minValue / 5) * 5;
+      const max = Math.round((minValue * 3) / 5) * 5;
+      return { min, max };
+    },
     isRupee: function () {
       return (
         this.prize === 'rupee' ||
