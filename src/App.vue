@@ -100,35 +100,22 @@
 
     <h3>Guides</h3>
     <section>
-      <div class="guide">
-        <h4>Dwarven Maze</h4>
-        <a
-          class="guide-link"
-          href="/zora-pond-tracker/dwarven-maze.jpg"
-          target="_blank"
-        >
-          <img
-            alt="Dwarven Maze Map"
-            class="guide-image pixel-corners"
-            :src="'/zora-pond-tracker/dwarven-maze.jpg'"
-          />
-        </a>
-      </div>
-
-      <div class="guide">
-        <h4>Kinstone Rewards</h4>
-        <a
-          class="guide-link"
-          :href="'/zora-pond-tracker/kinstone-guide-' + version + '.png'"
-          target="_blank"
-        >
-          <img
-            alt="Dwarven Maze Map"
-            class="guide-image pixel-corners"
-            :src="'/zora-pond-tracker/kinstone-guide-' + version + '.png'"
-          />
-        </a>
-      </div>
+      <GuideLink
+        alt="Dwarven Maze Map"
+        image="/zora-pond-tracker/dwarven-maze.jpg"
+        title="Dwarven Maze"
+      />
+      <GuideLink
+        alt="Kinstone reward chart"
+        :image="'/zora-pond-tracker/kinstone-guide-' + version + '.png'"
+        title="Kinstone Rewards"
+      />
+      <GuideLink
+        alt="Stats chart"
+        image="/zora-pond-tracker/stats-chart.png"
+        link="https://docs.google.com/spreadsheets/u/0/d/12kUPtlggTfWe7jjaKoyvBQY_idnZ2PL8xKgC8gRePV4/htmlview"
+        title="Enemy and Item Stats"
+      />
     </section>
     <footer></footer>
   </div>
@@ -136,6 +123,7 @@
 
 <script>
 import CheckBox from '@/components/CheckBox.vue';
+import GuideLink from '@/components/GuideLink.vue';
 import InventoryItem from '@/components/InventoryItem.vue';
 import ItemPrize from '@/components/ItemPrize.vue';
 import NumberField from '@/components/NumberField.vue';
@@ -147,6 +135,7 @@ import { gemPrizes_1_2_0 } from '@/helpers/gem-prizes-1.2.0.js';
 export default {
   components: {
     CheckBox,
+    GuideLink,
     ItemPrize,
     InventoryItem,
     NumberField
