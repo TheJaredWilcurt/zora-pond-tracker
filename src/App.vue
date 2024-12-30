@@ -164,7 +164,7 @@ export default {
             black: true
           }
         },
-        bag: 1,
+        bag: 0,
         bow: 0,
         gloves: 0,
         shield: 0,
