@@ -72,7 +72,8 @@
         <img
           alt="Rupee"
           :src="'/zora-pond-tracker/sprites/' + version + '/rupee.gif'"
-        />{{ rupeeWorth.min }}-{{ rupeeWorth.max }}
+        />
+        <span>{{ rupeeWorth.min }}-{{ rupeeWorth.max }}</span>
       </span>
     </div>
   </div>
