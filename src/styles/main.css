@@ -219,13 +219,13 @@ input::-webkit-inner-spin-button {
   background: #1D1E3C;
   margin-top: -4px;
   padding: 3px 10px 4px 10px;
-  font-size: 17px;
+  font-size: 19px;
 }
 .prize-dim .ruppee-worth {
   background: #1D1E3C96;
 }
 .ruppee-worth img {
-  max-height: 14px;
+  max-height: 17px;
   margin-right: 4px;
 }
 .guide {
