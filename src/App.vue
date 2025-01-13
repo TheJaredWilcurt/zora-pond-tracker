@@ -9,7 +9,7 @@
         For Dungeons of Infinity
         <span class="select-wrapper">
           <select v-model="version" class="pixel-corners">
-            <option version="1.2.0">1.2.0</option>
+            <option version="1.2.0">1.2.1</option>
             <option version="1.1.6">1.1.6</option>
           </select>
         </span>
